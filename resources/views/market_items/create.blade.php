@@ -1,5 +1,5 @@
 <div class="row pb-3">
-    <div class="col">
+    <div class="col d-flex justify-content-end">
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
             <i class="fa fa-plus"></i> Create a New Item
         </button>
@@ -104,7 +104,6 @@
         } else {
             isAlbum = 0;
         }
-        console.log(isAlbum);
     }
 
 
@@ -133,4 +132,4 @@
         });
     }
 </script>
-@endsection
+@append

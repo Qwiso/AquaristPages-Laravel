@@ -14,12 +14,8 @@
     <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <style>
-        input {
-            /*border-radius: 20px !important;*/
-        }
-        hr {
-            margin-top: 0.5rem !important;
-            margin-bottom: 0.5rem !important;
+        .btn-mine {
+            color: #fff;
         }
         .btn-mine:hover {
             color: #fff;
@@ -63,83 +59,27 @@
         }
     </style>
 </head>
-<body class="bg-light" style="height: auto; min-height: 100%;">
-<div class="container-fluid">
-    <div class="row bg-secondary">
-        <div class="col d-flex justify-content-between">
-            <a href="{{url('/')}}" class="btn btn-secondary">Aquarist Pages</a>
-            @if(auth()->check())
-                @if(!isset(auth()->user()->zipcode))
-                    <a href="{{url('profile')}}" class="btn btn-warning">no zipcode set</a>
-                @endif
-            @endif
+<body class="bg-light">
+
+<div class="container-fluid pb-3">
+    <div class="row bg-secondary justify-content-around">
+        <a href="{{url('/')}}" class="float-left btn btn-secondary">Aquarist Pages</a>
+        <div>
+            <a href="{{url('profile')}}" class="btn btn-secondary">Profile</a>
+            <a href="{{url('marketplace')}}" class="btn btn-secondary">Marketplace</a>
         </div>
     </div>
 </div>
-<div class="container-fluid">
-    <div class="row justify-content-around pt-3">
-        @if(auth()->check())
-            <div class="col-md-2">
-                @include('templates.sidebar')
-            </div>
-        @endif
-        <div class="col-md-8">
-            @yield('content')
-        </div>
-    </div>
+
+<div class="container-fluid pb-3">
+    @yield('content')
 </div>
+
 <script defer src="//use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="//stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 <script src="{{asset('js/bootstrap-wysiwyg.js')}}"></script>
-<script>
-    $(function(){
-        var carousels = $(".carousel");
-        $.each(carousels, function(index, carousel){
-            createImgurAlbumElement(carousel);
-        });
-    });
-
-    function createImgurAlbumElement(carousel) {
-        let carousel_id = carousel.id;
-        let media_url = carousel.dataset.media;
-        let endpoint;
-
-        if (media_url.includes("a/"))
-            endpoint = "https://api.imgur.com/3/album/"+media_url.replace('a/', '')+"/images?client_id=005fd711b7df2fe";
-        else
-            endpoint = "https://api.imgur.com/3/image/"+media_url+"/images?client_id=005fd711b7df2fe";
-
-        $.get(endpoint, function(res){
-            let first = true;
-            let count = 0;
-            let car = $(carousel);
-            let inner = $("#"+carousel_id+"_inner");
-
-            if (res.data.length) {
-                $.each(res.data, function(a, b){
-                    if (first) {
-                        first = false;
-                        inner.append("<div class='active carousel-item'><a href='"+b.link+"' target='_blank'><img height='280px' src='"+b.link+"'></a></div>");
-                        $("#"+carousel_id+"_indicators").append("<li data-target='#"+carousel_id+"' data-slide-to='" + count++ +"' class='active'></li>");
-                    } else {
-                        inner.append("<div class='carousel-item'><img height='280px'></div>");
-                        $("#"+carousel_id+"_indicators").append("<li data-target='#"+carousel_id+"' data-slide-to='" + count++ +"'></li>");
-                    }
-                });
-                car.carousel({
-                    'interval': false
-                });
-                car.on('slide.bs.carousel', function(event){
-                    $(event.relatedTarget).find('img')[0].src = res.data[event.to].link;
-                });
-            } else {
-                car.html("<a href='"+res.data.link+"' target='_blank'><img style='max-height: 280px;' height='280px' src='"+res.data.link+"' class='img img-fluid'></a>");
-            }
-        });
-    }
-</script>
 @yield('post-script')
 </body>
 </html>

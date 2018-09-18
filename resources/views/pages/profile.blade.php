@@ -1,18 +1,6 @@
 @extends('templates.main')
 
 @section('content')
-<div class="col">
-    <div class="row">
-        <div class="col">
-            @include('market_items.create')
-        </div>
-    </div>
-    <div class="row">
-        @foreach($items as $item)
-            <div class="col-md-4">
-                @include('market_items.show', $item)
-            </div>
-        @endforeach
-    </div>
-</div>
+    @include('market_items.create')
+    @include('market_items.list', $items)
 @endsection

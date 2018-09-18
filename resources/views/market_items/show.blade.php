@@ -1,30 +1,10 @@
-<div class="row bg-white shadow-sm mb-3 pb-3">
-    <div class="col pt-3">
-        <h4>{{$item->title}}</h4>
-        <div class="row pb-3">
-            <div class="col">
-                <small>{{$item->description}}</small>
-            </div>
-        </div>
-        <div class="row pb-3">
-            <div class="col">
-                <small>{{$item->amount}} available for ${{$item->price}} each</small>
-            </div>
-        </div>
-        <div class="row pb-3">
-            <div class="col">
-                <small>{{$item->zipcode->zipcode or 'zipcode not defined'}}</small>
-            </div>
-        </div>
-        @if(isset($item->media_url))
-            <div class="row pb-3">
-                <div class="col">
-                    @include('imgur.album', $item)
-                </div>
-            </div>
-        @else
-
-        @endif
-        @include('market_items.buy', $item)
+<div class="market-item shadow mr-3 mb-3" style="min-width: 245px; max-width: 245px; min-height: 305px; max-height: 305px;">
+    <div style="overflow: hidden; display: flex; align-items: center; min-width: 245px; max-width: 245px; min-height: 250px; max-height: 250px;">
+        <img data-media="{{$item->media_url}}" width="245px">
+    </div>
+    <div class="col pb-2">
+        <small><b>{{$item->title}}</b></small>
+        <br/>
+        <small class="text-muted">{{$item->created_at->diffForHumans() . ' ‧ ' . $item->zipcode->city . ',' . $item->zipcode->state_abbr}}</small>
     </div>
 </div>

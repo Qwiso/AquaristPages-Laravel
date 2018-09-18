@@ -36,6 +36,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property int|null $zipcode_id
  * @property-read \App\Zipcode|null $zipcode
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereZipcodeId($value)
+ * @property-read \App\Zipcode $location
  */
 class User extends Authenticatable
 {
