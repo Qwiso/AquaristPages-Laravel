@@ -66,8 +66,13 @@
 <body class="bg-light" style="height: auto; min-height: 100%;">
 <div class="container-fluid">
     <div class="row bg-secondary">
-        <div class="col">
+        <div class="col d-flex justify-content-between">
             <a href="{{url('/')}}" class="btn btn-secondary">Aquarist Pages</a>
+            @if(auth()->check())
+                @if(!isset(auth()->user()->zipcode))
+                    <a href="{{url('profile')}}" class="btn btn-warning">no zipcode set</a>
+                @endif
+            @endif
         </div>
     </div>
 </div>

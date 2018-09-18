@@ -11,6 +11,11 @@
                 <small>{{$item->amount}} available for ${{$item->price}} each</small>
             </div>
         </div>
+        <div class="row pb-3">
+            <div class="col">
+                <small>{{$item->zipcode->zipcode or 'zipcode not defined'}}</small>
+            </div>
+        </div>
         @if(isset($item->media_url))
             <div class="row pb-3">
                 <div class="col">

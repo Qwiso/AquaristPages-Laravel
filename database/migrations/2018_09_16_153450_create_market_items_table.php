@@ -16,6 +16,7 @@ class CreateMarketItemsTable extends Migration
         Schema::create('market_items', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
+            $table->integer('zipcode_id')->nullable();
             $table->string('category');
             $table->string('title');
             $table->string('description');

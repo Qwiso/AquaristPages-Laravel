@@ -30,10 +30,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\User $user
  * @method static \Illuminate\Database\Eloquent\Builder|\App\MarketItem whereCategory($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\MarketItem whereUserId($value)
+ * @property-read \App\Zipcode $location
  */
 class MarketItem extends Model
 {
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
     public function user() { return $this->belongsTo(User::class); }
+    public function location() { return $this->belongsTo(Zipcode::class); }
 }
