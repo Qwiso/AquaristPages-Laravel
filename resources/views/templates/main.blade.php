@@ -116,7 +116,7 @@
                 $.each(res.data, function(a, b){
                     if (first) {
                         first = false;
-                        inner.append("<div class='active carousel-item'><img height='280px' src='"+b.link+"'></div>");
+                        inner.append("<div class='active carousel-item'><a href='"+b.link+"' target='_blank'><img height='280px' src='"+b.link+"'></a></div>");
                         $("#"+carousel_id+"_indicators").append("<li data-target='#"+carousel_id+"' data-slide-to='" + count++ +"' class='active'></li>");
                     } else {
                         inner.append("<div class='carousel-item'><img height='280px'></div>");
@@ -130,7 +130,7 @@
                     $(event.relatedTarget).find('img')[0].src = res.data[event.to].link;
                 });
             } else {
-                car.html("<img style='max-height: 280px;' height='280px' src='"+res.data.link+"' class='img img-fluid'>");
+                car.html("<a href='"+res.data.link+"' target='_blank'><img style='max-height: 280px;' height='280px' src='"+res.data.link+"' class='img img-fluid'></a>");
             }
         });
     }

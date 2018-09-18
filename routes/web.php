@@ -14,12 +14,11 @@ Route::get('logout', function(){
     return redirect('/');
 });
 
-
 Route::get('login', function(){
     $key = request('super_secret_key');
     if ($key == "erboh")
         auth()->loginUsingId(2);
-    
+
     return redirect('/');
 });
 
