@@ -15,15 +15,19 @@ class CreateMarketItemsTable extends Migration
     {
         Schema::create('market_items', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('uuid');
             $table->integer('user_id');
             $table->integer('zipcode_id')->nullable();
             $table->string('category');
             $table->string('title');
             $table->string('description');
-            $table->string('media_url');
             $table->integer('amount');
             $table->decimal('price');
             $table->timestamps();
+        });
+
+        Schema::table('market_items', function (Blueprint $table){
+            DB::statement("ALTER TABLE `market_items` ADD `media_url` MEDIUMBLOB");
         });
     }
 
