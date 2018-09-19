@@ -133,6 +133,7 @@
                     var dataUrl = canvas.toDataURL('image/jpeg');
                     resetOrientation(dataUrl, marketItemImageOrientation, function(correctedImage){
                         marketItemImage = correctedImage;
+                        $(".input-group .img-fluid")[0].src = marketItemImage;
                     });
                 };
                 image.src = readerEvent.target.result;

@@ -83,5 +83,19 @@
 <script src="//stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 <script src="{{asset('js/bootstrap-wysiwyg.js')}}"></script>
 @yield('post-script')
+<script>
+    function editItem(itemId){
+        $.get("{{url('marketplace/item/edit')}}/" + itemId, function(res){
+            $("#edit-item").remove();
+            $("body").append(res);
+            $("#edit-item").modal('show');
+        });
+    }
+
+    function deleteItem(itemId){
+        if(!confirm('Delete your listing?!')) return;
+        // delete item
+    }
+</script>
 </body>
 </html>

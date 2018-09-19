@@ -5,7 +5,7 @@ Route::get('/', function () {
         return view('pages.login');
 
     $nearbyZipcodes = auth()->user()->getZipcodeIdsByRadius();
-    $items = \App\MarketItem::where('amount', '>', 0)->whereIn('zipcode_id', $nearbyZipcodes)->orderBY('created_at', 'desc')->get();
+    $items = \App\MarketItem::whereNotNull('amount')->where('amount', '>', 0)->whereIn('zipcode_id', $nearbyZipcodes)->orderBY('created_at', 'desc')->get();
 
     return view('pages.main', compact('items'));
 });
@@ -54,6 +54,7 @@ Route::group(['prefix' => 'profile'], function(){
 
 Route::group(['prefix' => 'marketplace'], function(){
     Route::get('/', 'MarketplaceController@index');
+    Route::get('item/edit/{id}', 'MarketplaceController@getEdit');
     Route::get('item/{id}', 'MarketplaceController@show');
     Route::post('create', 'MarketplaceController@create');
     Route::put('update', 'MarketplaceController@update');

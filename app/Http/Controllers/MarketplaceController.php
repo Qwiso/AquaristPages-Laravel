@@ -17,6 +17,11 @@ class MarketplaceController extends Controller
     }
 
 
+    public function getEdit($id) {
+        $item = MarketItem::find($id);
+        return view('market_items.edit', compact('item'))->render();
+    }
+
     public function create() {
         $item = new MarketItem(json_decode(request('item'), true));
         $item->uuid = md5($item->toJson());

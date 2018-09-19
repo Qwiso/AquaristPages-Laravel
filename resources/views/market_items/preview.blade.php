@@ -1,7 +1,7 @@
 <div class="market-item d-xs-flex d-sm-inline-block shadow mr-3 mb-3" style="min-width: 245px; max-width: 245px; min-height: 305px; max-height: 305px;">
     @if(auth()->id() == $item->user_id)
     <div class="row justify-content-end pr-3">
-        <div class="position-absolute btn btn-secondary pt-0 pb-1 px-1"><i class="fa fa-xs fa-edit"></i></div>
+        <div class="position-absolute btn btn-secondary pt-0 pb-1 px-1" onclick="editItem({{$item->id}})"><i class="fa fa-xs fa-edit"></i></div>
     </div>
     @endif
     <div class="row justify-content-start pl-3">
