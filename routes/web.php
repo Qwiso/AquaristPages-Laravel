@@ -4,7 +4,8 @@ Route::get('/', function () {
     if (!auth()->check())
         return view('pages.login');
 
-    return view('pages.main');
+    $items = \App\MarketItem::orderBY('created_at', 'desc')->get();
+    return view('pages.main', compact('items'));
 });
 
 Route::get('logout', function(){

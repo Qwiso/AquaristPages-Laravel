@@ -3,6 +3,11 @@
         <div class="row justify-content-end pr-3">
             <div class="position-absolute btn btn-mine btn-xs p-2" onclick="console.log(this)"><i class="fa fa-edit"></i></div>
         </div>
+        @section('post-script')
+        <script>
+            // this came from preview blade
+        </script>
+        @append
     @endif
     <div style="overflow: hidden; display: flex; align-items: center; min-width: 245px; max-width: 245px; min-height: 250px; max-height: 250px;">
         <a href="{{url('marketplace/item')}}/{{$item->uuid}}"><img src="{{$item->media_url}}" width="245px"></a>
