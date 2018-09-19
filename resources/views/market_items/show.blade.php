@@ -1,8 +1,8 @@
 @extends('templates.main')
 
 @section('content')
-<div class="col d-flex justify-content-center">
-    <img src="{{$item->media_url}}">
+<div class="col">
+    <img class="img-fluid d-block mx-auto" src="{{$item->media_url}}">
 </div>
 <div class="col pb-2">
     <p class="m-0">
