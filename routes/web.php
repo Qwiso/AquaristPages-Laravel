@@ -12,7 +12,7 @@ Route::get('logout', function(){
     return redirect('/');
 });
 
-Route::get('test', function(){
+Route::get('login', function(){
     $key = request('super_secret_key');
 
     switch ($key) {
