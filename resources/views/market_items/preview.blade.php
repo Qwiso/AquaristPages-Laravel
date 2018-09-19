@@ -1,14 +1,12 @@
 <div class="market-item d-xs-flex d-sm-inline-block shadow mr-3 mb-3" style="min-width: 245px; max-width: 245px; min-height: 305px; max-height: 305px;">
     @if(auth()->id() == $item->user_id)
-        <div class="row justify-content-end pr-3">
-            <div class="position-absolute btn btn-mine btn-xs p-2" onclick="console.log(this)"><i class="fa fa-edit"></i></div>
-        </div>
-        @section('post-script')
-        <script>
-            // this came from preview blade
-        </script>
-        @append
+    <div class="row justify-content-end pr-3">
+        <div class="position-absolute btn btn-secondary pt-0 pb-1 px-1"><i class="fa fa-xs fa-edit"></i></div>
+    </div>
     @endif
+    <div class="row justify-content-start pl-3">
+        <div class="position-absolute badge badge-secondary p-2 align-middle">${{$item->price}}</div>
+    </div>
     <div style="overflow: hidden; display: flex; align-items: center; min-width: 245px; max-width: 245px; min-height: 250px; max-height: 250px;">
         <a href="{{url('marketplace/item')}}/{{$item->uuid}}"><img src="{{$item->media_url}}" width="245px"></a>
     </div>
