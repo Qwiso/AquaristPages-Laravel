@@ -86,6 +86,11 @@
 @section('post-script')
 <script>
     $(function(){
+        window.addEventListener("error", function (e) {
+            alert("Error occurred: " + e.error.message);
+            return false;
+        });
+
         let itemForm = document.getElementById('form_createMarketItem');
         itemForm.addEventListener('submit', createMarketItemSubmit);
     });
