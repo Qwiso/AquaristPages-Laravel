@@ -33,6 +33,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\Zipcode $location
  * @property int|null $zipcode_id
  * @method static \Illuminate\Database\Eloquent\Builder|\App\MarketItem whereZipcodeId($value)
+ * @property string $uuid
+ * @property-read \App\Zipcode|null $zipcode
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\MarketItem whereUuid($value)
  */
 class MarketItem extends Model
 {

@@ -62,7 +62,7 @@
 <body class="bg-light">
 
 <div class="container-fluid pb-3">
-    <div class="row bg-secondary">
+    <div class="row bg-secondary justify-content-around">
         <a href="{{url('/')}}" class="btn btn-secondary px-5">Aquarist Pages</a>
         @if(auth()->check())
             <div>

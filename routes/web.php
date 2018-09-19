@@ -8,16 +8,30 @@ Route::get('/', function () {
 });
 
 Route::get('logout', function(){
-    if (auth()->check())
-        auth()->logout();
-
+    auth()->logout();
     return redirect('/');
 });
 
-Route::get('login', function(){
+Route::get('test', function(){
     $key = request('super_secret_key');
-    if ($key == "erboh")
-        auth()->loginUsingId(2);
+
+    switch ($key) {
+        case "erboh":
+            auth()->loginUsingId(2);
+            break;
+        case "erboh2":
+            auth()->loginUsingId(3);
+            break;
+        case "erboh3":
+            auth()->loginUsingId(4);
+            break;
+        case "erboh4":
+            auth()->loginUsingId(5);
+            break;
+        case "erboh5":
+            auth()->loginUsingId(6);
+            break;
+    }
 
     return redirect('/');
 });
@@ -36,5 +50,8 @@ Route::group(['prefix' => 'profile'], function(){
 Route::group(['prefix' => 'marketplace'], function(){
     Route::get('/', 'MarketplaceController@index');
     Route::get('items', 'MarketplaceController@getItems');
+    Route::get('item/{id}', 'MarketplaceController@show');
     Route::post('create', 'MarketplaceController@create');
+    Route::put('update', 'MarketplaceController@update');
+    Route::delete('delete', 'MarketplaceController@delete');
 });

@@ -1,10 +1,22 @@
-<div class="market-item shadow mr-3 mb-3" style="min-width: 245px; max-width: 245px; min-height: 305px; max-height: 305px;">
-    <div style="overflow: hidden; display: flex; align-items: center; min-width: 245px; max-width: 245px; min-height: 250px; max-height: 250px;">
-        <img src="{{$item->media_url}}" width="245px">
-    </div>
-    <div class="col pb-2">
-        <small><b>{{$item->title}}</b></small>
-        <br/>
-        <small class="text-muted">{{$item->created_at->diffForHumans() . ' ‧ ' . $item->zipcode->city . ', ' . $item->zipcode->state_abbr}}</small>
-    </div>
+@extends('templates.main')
+
+@section('content')
+<div class="col">
+    <img class="img-fluid" src="{{$item->media_url}}" style="cursor: pointer;" onclick="openImageWindow(this)">
 </div>
+<div class="col text-center pb-2">
+    <p class="m-0"><b>{{$item->title}}</b></p>
+    <small>from <a href="{{url('profile')}}/{{$item->user->id}}">{{$item->user->name}}</a> in {{$item->zipcode->city}}, {{$item->zipcode->state_abbr}}</small>
+</div>
+@endsection
+
+@section('post-script')
+<script>
+    function openImageWindow(element) {
+        let img = document.createElement("img");
+        img.src = element.src;
+        let newTab = window.open();
+        newTab.document.body.appendChild(img);
+    }
+</script>
+@endsection
