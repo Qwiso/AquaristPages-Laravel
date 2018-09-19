@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="col d-flex justify-content-center">
-    <img class="img-fluid" data-source="{{$item->media_url}}" style="cursor: pointer;" onclick="openImageWindow(this)">
+    <img class="img-fluid" data-source="{{$item->media_url}}">
 </div>
 <div class="col text-center pb-2">
     <p class="m-0"><b>{{$item->title}}</b></p>
@@ -18,11 +18,5 @@
             this.src = this.dataset.source;
         });
     });
-    function openImageWindow(element) {
-        let img = document.createElement("img");
-        img.src = element.src;
-        let newTab = window.open();
-        newTab.document.body.appendChild(img);
-    }
 </script>
 @endsection
