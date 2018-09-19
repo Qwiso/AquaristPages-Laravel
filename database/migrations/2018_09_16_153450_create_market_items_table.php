@@ -20,7 +20,7 @@ class CreateMarketItemsTable extends Migration
             $table->integer('zipcode_id')->nullable();
             $table->string('category');
             $table->string('title');
-            $table->string('description', 1000);
+            $table->string('description', 2500);
             $table->integer('amount')->nullable();
             $table->decimal('price');
             $table->timestamps();
