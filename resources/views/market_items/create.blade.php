@@ -67,7 +67,7 @@
                                     </div>
                                     {{--<input type="url" class="form-control" name="media_url" placeholder="imgur url...">--}}
                                     {{--<input type="url" class="form-control" name="media_url" placeholder="imgur url..." onchange="imgurLinkChanged(this)">--}}
-                                    <input type="file" accept="image/*" name="media_url" onchange="resizePhoto()" required>
+                                    <input type="file" accept="image/*" name="media_url" onchange="fileLoaded()" required>
                                 </div>
                             </div>
                         </div>
@@ -86,28 +86,27 @@
 
 @section('post-script')
 <script>
-    let albumid, isAlbum, marketItemImage;
+    let albumid, isAlbum, marketItemImage, marketItemImageOrientation;
 
     $(function(){
         let itemForm = document.getElementById('form_createMarketItem');
         itemForm.addEventListener('submit', createMarketItemSubmit);
-
-        $(document).on("imageResized", function (event) {
-            if (event.imageBlob && event.dataUrl) {
-                marketItemImage = event.dataUrl;
-            }
-        });
     });
 
 
-    function resizePhoto() {
+    function fileLoaded() {
         // Read in file
         var file = event.target.files[0];
 
         // Ensure it's an image
         if (file.type.match(/image.*/)) {
 
-            // Load the image
+            // Get image orientation
+            getImageOrientation(file, function(orientation) {
+                marketItemImageOrientation = orientation;
+            });
+
+            // Resize and reorient the image
             var reader = new FileReader();
             reader.onload = function (readerEvent) {
                 var image = new Image();
@@ -134,58 +133,95 @@
                     canvas.getContext('2d').drawImage(image, 0, 0, width, height);
 
                     var dataUrl = canvas.toDataURL('image/jpeg');
-                    var resizedImage = dataURLToBlob(dataUrl);
-
-                    $.event.trigger({
-                        type: "imageResized",
-                        imageBlob: resizedImage,
-                        dataUrl: dataUrl
+                    resetOrientation(dataUrl, marketItemImageOrientation, function(correctedImage){
+                        marketItemImage = correctedImage;
                     });
                 };
                 image.src = readerEvent.target.result;
             };
+
             reader.readAsDataURL(file);
         } else {
             // not an image file
         }
     }
 
+    function getImageOrientation(file, callback) {
+        var reader = new FileReader();
 
-    var dataURLToBlob = function(dataURL) {
-        var BASE64_MARKER = ';base64,';
-        if (dataURL.indexOf(BASE64_MARKER) == -1) {
-            var parts = dataURL.split(',');
-            var contentType = parts[0].split(':')[1];
-            var raw = parts[1];
+        reader.onload = function(event) {
+            var view = new DataView(event.target.result);
 
-            return new Blob([raw], {type: contentType});
-        }
+            if (view.getUint16(0, false) != 0xFFD8) return callback(-2);
 
-        var parts = dataURL.split(BASE64_MARKER);
-        var contentType = parts[0].split(':')[1];
-        var raw = window.atob(parts[1]);
-        var rawLength = raw.length;
+            var length = view.byteLength,
+                    offset = 2;
 
-        var uInt8Array = new Uint8Array(rawLength);
+            while (offset < length) {
+                var marker = view.getUint16(offset, false);
+                offset += 2;
 
-        for (var i = 0; i < rawLength; ++i) {
-            uInt8Array[i] = raw.charCodeAt(i);
-        }
+                if (marker == 0xFFE1) {
+                    if (view.getUint32(offset += 2, false) != 0x45786966) {
+                        return callback(-1);
+                    }
+                    var little = view.getUint16(offset += 6, false) == 0x4949;
+                    offset += view.getUint32(offset + 4, little);
+                    var tags = view.getUint16(offset, little);
+                    offset += 2;
 
-        return new Blob([uInt8Array], {type: contentType});
-    };
+                    for (var i = 0; i < tags; i++)
+                        if (view.getUint16(offset + (i * 12), little) == 0x0112)
+                            return callback(view.getUint16(offset + (i * 12) + 8, little));
+                }
+                else if ((marker & 0xFF00) != 0xFF00) break;
+                else offset += view.getUint16(offset, false);
+            }
+            return callback(-1);
+        };
+
+        reader.readAsArrayBuffer(file.slice(0, 64 * 1024));
+    }
 
 
-    function imgurLinkChanged(input) {
-        let link = input.value;
-        let re = /\w+(?=[^/]*$)/;
-        let hm = link.match(re);
-        albumid = hm[0];
-        if (link.includes('/a/') || link.includes('gallery')) {
-            isAlbum = 1;
-        } else {
-            isAlbum = 0;
-        }
+    function resetOrientation(srcBase64, srcOrientation, callback) {
+        var img = new Image();
+
+        img.onload = function() {
+            var width = img.width,
+                    height = img.height,
+                    canvas = document.createElement('canvas'),
+                    ctx = canvas.getContext("2d");
+
+            // set proper canvas dimensions before transform & export
+            if (4 < srcOrientation && srcOrientation < 9) {
+                canvas.width = height;
+                canvas.height = width;
+            } else {
+                canvas.width = width;
+                canvas.height = height;
+            }
+
+            // transform context before drawing image
+            switch (srcOrientation) {
+                case 2: ctx.transform(-1, 0, 0, 1, width, 0); break;
+                case 3: ctx.transform(-1, 0, 0, -1, width, height ); break;
+                case 4: ctx.transform(1, 0, 0, -1, 0, height ); break;
+                case 5: ctx.transform(0, 1, 1, 0, 0, 0); break;
+                case 6: ctx.transform(0, 1, -1, 0, height , 0); break;
+                case 7: ctx.transform(0, -1, -1, 0, height , width); break;
+                case 8: ctx.transform(0, -1, 1, 0, 0, width); break;
+                default: break;
+            }
+
+            // draw image
+            ctx.drawImage(img, 0, 0, width, height);
+
+            // export base64
+            callback(canvas.toDataURL('image/jpeg'));
+        };
+
+        img.src = srcBase64;
     }
 
 
@@ -200,11 +236,6 @@
         marketItem.amount = document.querySelector('input[name="amount"]').value;
         marketItem.price = document.querySelector('input[name="price"]').value;
         marketItem.media_url = marketItemImage;
-
-//        if (isAlbum)
-//            marketItem.media_url = 'a/' + albumid;
-//        else
-//            marketItem.media_url = albumid;
 
         let data = {};
         data._token = "{{csrf_token()}}";

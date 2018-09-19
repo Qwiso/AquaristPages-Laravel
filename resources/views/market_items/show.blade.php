@@ -1,8 +1,8 @@
 @extends('templates.main')
 
 @section('content')
-<div class="col">
-    <img class="img-fluid" src="{{$item->media_url}}" style="cursor: pointer;" onclick="openImageWindow(this)">
+<div class="col d-flex justify-content-center">
+    <img class="img-fluid" data-source="{{$item->media_url}}" style="cursor: pointer;" onclick="openImageWindow(this)">
 </div>
 <div class="col text-center pb-2">
     <p class="m-0"><b>{{$item->title}}</b></p>
@@ -12,6 +12,12 @@
 
 @section('post-script')
 <script>
+    $(function(){
+        let images = $("img[data-source]");
+        $(images).each(function(){
+            this.src = this.dataset.source;
+        });
+    });
     function openImageWindow(element) {
         let img = document.createElement("img");
         img.src = element.src;
