@@ -66,8 +66,8 @@
                                     {{--<input type="url" class="form-control" name="media_url" placeholder="imgur url...">--}}
                                     {{--<input type="url" class="form-control" name="media_url" placeholder="imgur url..." onchange="imgurLinkChanged(this)">--}}
                                     <input type="file" accept="image/*" name="media_url" onchange="fileLoaded()" required>
-                                    <img class="img-fluid">
                                 </div>
+                                <img class="img-fluid d-block mx-auto">
                             </div>
                         </div>
 
