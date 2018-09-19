@@ -85,7 +85,7 @@
 @yield('post-script')
 <script>
     let albumid, isAlbum, marketItemImage, marketItemImageOrientation;
-    
+
 
     function editItem(itemId){
         $.get("{{url('marketplace/item/edit')}}/" + itemId, function(res){

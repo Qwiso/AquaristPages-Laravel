@@ -81,7 +81,3 @@
         </div>
     </div>
 </div>
-
-@section('post-script')
-
-@append
