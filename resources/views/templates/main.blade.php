@@ -102,12 +102,6 @@
     }
 
 
-    $(function(){
-        let itemForm = document.getElementById('form_createMarketItem');
-        itemForm.addEventListener('submit', createMarketItemSubmit);
-    });
-
-
     function fileLoaded() {
         // Read in file
         var file = event.target.files[0];

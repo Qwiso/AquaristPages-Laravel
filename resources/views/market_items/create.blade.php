@@ -66,6 +66,7 @@
                                     {{--<input type="url" class="form-control" name="media_url" placeholder="imgur url...">--}}
                                     {{--<input type="url" class="form-control" name="media_url" placeholder="imgur url..." onchange="imgurLinkChanged(this)">--}}
                                     <input type="file" accept="image/*" name="media_url" onchange="fileLoaded()" required>
+                                    <img class="img-fluid">
                                 </div>
                             </div>
                         </div>
@@ -81,3 +82,12 @@
         </div>
     </div>
 </div>
+
+@section('post-script')
+<script>
+    $(function(){
+        let itemForm = document.getElementById('form_createMarketItem');
+        itemForm.addEventListener('submit', createMarketItemSubmit);
+    });
+</script>
+@append
