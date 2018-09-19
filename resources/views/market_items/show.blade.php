@@ -14,5 +14,9 @@
         <br/>
         <small>from <a href="{{url('profile')}}/{{$item->user->id}}">{{$item->user->name}}</a> in {{$item->zipcode->city}}, {{$item->zipcode->state_abbr}}</small>
     </p>
+
+    <p class="m-0 pt-3">
+        {{$item->description}}
+    </p>
 </div>
 @endsection
