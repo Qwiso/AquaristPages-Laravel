@@ -4,7 +4,9 @@ Route::get('/', function () {
     if (!auth()->check())
         return view('pages.login');
 
-    $items = \App\MarketItem::orderBY('created_at', 'desc')->get();
+    $nearbyZipcodes = auth()->user()->getZipcodeIdsByRadius();
+    $items = \App\MarketItem::whereIn('zipcode_id', $nearbyZipcodes)->orderBY('created_at', 'desc')->get();
+
     return view('pages.main', compact('items'));
 });
 
@@ -45,12 +47,12 @@ Route::group(['prefix' => 'facebook'], function(){
 
 Route::group(['prefix' => 'profile'], function(){
     Route::get('/', 'ProfileController@index');
+    Route::get('user/{id}', 'ProfileController@index');
 });
 
 
 Route::group(['prefix' => 'marketplace'], function(){
     Route::get('/', 'MarketplaceController@index');
-    Route::get('items', 'MarketplaceController@getItems');
     Route::get('item/{id}', 'MarketplaceController@show');
     Route::post('create', 'MarketplaceController@create');
     Route::put('update', 'MarketplaceController@update');

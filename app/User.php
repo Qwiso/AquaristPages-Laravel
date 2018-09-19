@@ -2,6 +2,7 @@
 
 namespace App;
 
+use DB;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -48,4 +49,12 @@ class User extends Authenticatable
     public function items() { return $this->hasMany(MarketItem::class); }
     public function posts() { return $this->hasMany(Post::class); }
     public function comments() { return $this->hasMany(Comment::class); }
+
+    function getZipcodeIdsByRadius($radius = 25)
+    {
+        $lat = auth()->user()->zipcode->lat;
+        $lon = auth()->user()->zipcode->lon;
+        $sql = '(3958*3.1415926*sqrt((lat-'.$lat.')*(lat-'.$lat.') + cos(lat/57.29578)*cos('.$lat.'/57.29578)*(lon-'.$lon.')*(lon-'.$lon.'))/180) <= '.$radius.';';
+        return DB::table('zipcodes')->whereRaw($sql)->pluck('id');
+    }
 }
