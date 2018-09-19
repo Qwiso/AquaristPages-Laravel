@@ -28,6 +28,7 @@ class MarketplaceController extends Controller
         ]);
     }
 
+
     public function delete() {
         $uuid = request('uuid');
         $item = MarketItem::where('uuid', $uuid)->firstOrFail();
@@ -35,6 +36,7 @@ class MarketplaceController extends Controller
         $item->delete();
         return response($uuid, 200);
     }
+
 
     public function update() {
         $updatedItem = json_decode(request('item'));

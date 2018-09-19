@@ -5,7 +5,7 @@ Route::get('/', function () {
         return view('pages.login');
 
     $nearbyZipcodes = auth()->user()->getZipcodeIdsByRadius();
-    $items = \App\MarketItem::whereIn('zipcode_id', $nearbyZipcodes)->orderBY('created_at', 'desc')->get();
+    $items = \App\MarketItem::where('amount', '>', 0)->whereIn('zipcode_id', $nearbyZipcodes)->orderBY('created_at', 'desc')->get();
 
     return view('pages.main', compact('items'));
 });
@@ -38,6 +38,7 @@ Route::get('login', function(){
 
     return redirect('/');
 });
+
 
 Route::group(['prefix' => 'facebook'], function(){
     Route::get('login', 'FacebookController@redirectToProvider');
