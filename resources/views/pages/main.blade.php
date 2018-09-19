@@ -2,7 +2,5 @@
 
 @section('content')
 <h3>Hello, {{auth()->user()->name}}</h3>
-<div class="row">
-    @include('market_items.list', $items)
-</div>
+@include('market_items.list', $items)
 @endsection
