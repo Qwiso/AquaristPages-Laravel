@@ -98,7 +98,19 @@
 
     function deleteItem(itemId){
         if(!confirm('Delete your listing?!')) return;
-        // delete item
+
+        let data = {};
+        data.item_id = itemId;
+        data._token = "{{csrf_token()}}";
+
+        $.ajax({
+            url: '{{url("marketplace/delete")}}',
+            type: 'DELETE',
+            data: data,
+            success: function() {
+                $("#edit-item").modal('hide');
+            }
+        });
     }
 
 
@@ -192,7 +204,6 @@
         reader.readAsArrayBuffer(file.slice(0, 64 * 1024));
     }
 
-
     function resetOrientation(srcBase64, srcOrientation, callback) {
         var img = new Image();
 
@@ -232,7 +243,6 @@
 
         img.src = srcBase64;
     }
-
 
     function createMarketItemSubmit(e) {
         e.preventDefault();

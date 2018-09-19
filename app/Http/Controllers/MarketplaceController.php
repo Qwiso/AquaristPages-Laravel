@@ -35,11 +35,11 @@ class MarketplaceController extends Controller
 
 
     public function delete() {
-        $uuid = request('uuid');
-        $item = MarketItem::where('uuid', $uuid)->firstOrFail();
+        $item_id = request('item_id');
+        $item = MarketItem::find($item_id);
         if (auth()->id() != $item->user_id) return response('stop that', 403);
         $item->delete();
-        return response($uuid, 200);
+        return response('success');
     }
 
 

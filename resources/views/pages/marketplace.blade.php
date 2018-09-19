@@ -5,9 +5,3 @@
 
 </div>
 @endsection
-
-@section('post-script')
-<script>
-
-</script>
-@endsection
