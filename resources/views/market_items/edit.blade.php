@@ -1,7 +1,7 @@
 <div class="modal fade" id="edit-item" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <form id="form_createMarketItem">
+            <form id="form_editMarketItem">
                 <div class="row bg-white shadow-sm">
                     <div class="col pt-3">
                         <div class="row pb-3">
@@ -70,8 +70,9 @@
 
                         <div class="row pb-3">
                             <div class="col d-flex justify-content-between">
+                                <input hidden type="text" name="uuid" value="{{$item->uuid}}">
                                 <button type="button" class="btn btn-danger" onclick="deleteItem({{$item->id}})">Delete</button>
-                                <button type="submit" class="btn btn-primary">Update</button>
+                                <button type="button" class="btn btn-primary" onclick="editMarketItemSubmit()">Update</button>
                             </div>
                         </div>
                     </div>

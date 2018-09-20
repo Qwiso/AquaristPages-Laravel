@@ -57,4 +57,9 @@ class User extends Authenticatable
         $sql = '(3958*3.1415926*sqrt((lat-'.$lat.')*(lat-'.$lat.') + cos(lat/57.29578)*cos('.$lat.'/57.29578)*(lon-'.$lon.')*(lon-'.$lon.'))/180) <= '.$radius.';';
         return DB::table('zipcodes')->whereRaw($sql)->pluck('id');
     }
+
+    function getZipcodeIdsByState()
+    {
+        return Zipcode::where('state', auth()->user()->zipcode->state)->pluck('id');
+    }
 }

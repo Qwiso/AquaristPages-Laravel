@@ -88,6 +88,10 @@
 <script>
     let albumid, isAlbum, marketItemImage, marketItemImageOrientation;
 
+    window.addEventListener("error", function (e) {
+        alert("Error occurred: " + e.error.message);
+        return false;
+    });
 
     function editItem(itemId){
         $.get("{{url('marketplace/item/edit')}}/" + itemId, function(res){
@@ -245,10 +249,7 @@
         img.src = srcBase64;
     }
 
-    function createMarketItemSubmit(e) {
-        e.preventDefault();
-        e.stopPropagation();
-
+    function createMarketItemSubmit() {
         let marketItem = {};
         marketItem.title = document.querySelector('input[name="title"]').value;
         marketItem.category = document.querySelector('select[name="category"]').value;
@@ -271,16 +272,14 @@
     }
 
     function editMarketItemSubmit(e){
-        e.preventDefault();
-        e.stopPropagation();
-
         let marketItem = {};
-        marketItem.title = document.querySelector('input[name="title"]').value;
-        marketItem.category = document.querySelector('select[name="category"]').value;
-        marketItem.description = document.querySelector('textarea[name="description"]').value;
-        let amount = document.querySelector('input[name="amount"]').value;
+        marketItem.uuid = document.querySelector('#form_editMarketItem input[name="uuid"]').value;
+        marketItem.title = document.querySelector('#form_editMarketItem input[name="title"]').value;
+        marketItem.category = document.querySelector('#form_editMarketItem select[name="category"]').value;
+        marketItem.description = document.querySelector('#form_editMarketItem textarea[name="description"]').value;
+        let amount = document.querySelector('#form_editMarketItem input[name="amount"]').value;
         marketItem.amount = amount == '' ? 0 : amount;
-        marketItem.price = document.querySelector('input[name="price"]').value;
+        marketItem.price = document.querySelector('#form_editMarketItem input[name="price"]').value;
         marketItem.media_url = marketItemImage;
 
         let data = {};
@@ -292,7 +291,6 @@
             type: 'PUT',
             data: data,
             success: function() {
-                $("#edit-item").modal('hide');
                 window.location.reload();
             }
         });

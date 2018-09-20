@@ -73,7 +73,7 @@
 
                         <div class="row pb-3">
                             <div class="col d-flex justify-content-end">
-                                <button type="submit" class="btn btn-primary">Create</button>
+                                <button type="button" class="btn btn-primary" onclick="createMarketItemSubmit()">Create</button>
                             </div>
                         </div>
                     </div>
@@ -82,17 +82,3 @@
         </div>
     </div>
 </div>
-
-@section('post-script')
-<script>
-    $(function(){
-        window.addEventListener("error", function (e) {
-            alert("Error occurred: " + e.error.message);
-            return false;
-        });
-
-        let itemForm = document.getElementById('form_createMarketItem');
-        itemForm.addEventListener('submit', createMarketItemSubmit);
-    });
-</script>
-@append

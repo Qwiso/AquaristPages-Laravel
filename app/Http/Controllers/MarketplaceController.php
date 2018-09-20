@@ -8,9 +8,12 @@ class MarketplaceController extends Controller
 {
     public function index() {
         $nearbyZipcodes = auth()->user()->getZipcodeIdsByRadius();
-        $items = MarketItem::whereNotNull('amount')->where('amount', '>', 0)->whereIn('zipcode_id', $nearbyZipcodes)->orderBY('created_at', 'desc')->get();
+        $statewideZipcodes = auth()->user()->getZipcodeIdsByState();
 
-        return view('pages.marketplace', compact('items'));
+        $localItems = MarketItem::whereNotNull('amount')->whereIn('zipcode_id', $nearbyZipcodes)->orderBY('created_at', 'desc')->get();
+        $stateItems = MarketItem::whereNotNull('amount')->whereIn('zipcode_id', $statewideZipcodes)->orderBY('created_at', 'desc')->get();
+
+        return view('pages.marketplace', compact('localItems', 'stateItems'));
     }
 
 
@@ -47,13 +50,12 @@ class MarketplaceController extends Controller
 
 
     public function update() {
-        $updatedItem = json_decode(request('item'));
-        $oldItem = MarketItem::where('uuid', $updatedItem->uuid)->firstOrFail();
+        $updatedItem = json_decode(request('item'), true);
+        $oldItem = MarketItem::where('uuid', $updatedItem['uuid'])->firstOrFail();
         if (auth()->id() != $oldItem->user_id) return response('stop that', 403);
-        $updatedItem = $oldItem->update($updatedItem->toArray());
+        $oldItem->update($updatedItem);
         return response()->json([
-            'success' => true,
-            'item' => $updatedItem
+            'success' => true
         ]);
     }
 }
