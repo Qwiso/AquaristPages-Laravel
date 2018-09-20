@@ -9,11 +9,10 @@ class MarketplaceController extends Controller
 {
     public function index() {
         $user = auth()->user();
-        if (!$localItems = \Cache::get($user->id .'localItems')) {
-            $nearbyZipcodes = $user->getZipcodeIdsByRadius();
-            $localItems = MarketItem::whereNotNull('amount')->whereIn('zipcode_id', $nearbyZipcodes)->orderBY('created_at', 'desc')->get();
-            \Cache::put($user->id.'localItems', $localItems, 1);
-        }
+        
+        $nearbyZipcodes = $user->getZipcodeIdsByRadius();
+        $localItems = MarketItem::whereNotNull('amount')->whereIn('zipcode_id', $nearbyZipcodes)->orderBY('created_at', 'desc')->get();
+        \Cache::put($user->id.'localItems', $localItems, 1);
 
         return view('pages.marketplace', compact('localItems'));
     }
