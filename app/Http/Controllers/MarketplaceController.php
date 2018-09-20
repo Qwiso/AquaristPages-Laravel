@@ -3,14 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\MarketItem;
+use Storage;
 
 class MarketplaceController extends Controller
 {
     public function index() {
         $nearbyZipcodes = auth()->user()->getZipcodeIdsByRadius();
-
         $localItems = MarketItem::whereNotNull('amount')->whereIn('zipcode_id', $nearbyZipcodes)->orderBY('created_at', 'desc')->get();
-
         return view('pages.marketplace', compact('localItems'));
     }
 
@@ -30,6 +29,7 @@ class MarketplaceController extends Controller
         $item = new MarketItem(json_decode(request('item'), true));
         $item->uuid = md5($item->toJson());
         $item->zipcode_id = auth()->user()->zipcode->id;
+        Storage::disk('local')->put('market_images/'.$item->uuid.'.jpeg', request('media_url'));
         $newItem = auth()->user()->items()->create($item->toArray());
         return response()->json([
             'success' => true,
@@ -51,6 +51,7 @@ class MarketplaceController extends Controller
         $updatedItem = json_decode(request('item'), true);
         $oldItem = MarketItem::where('uuid', $updatedItem['uuid'])->firstOrFail();
         if (auth()->id() != $oldItem->user_id) return response('stop that', 403);
+        Storage::disk('local')->put('market_images/'.$oldItem->uuid.'.jpeg', request('media_url'));
         $oldItem->update($updatedItem);
         return response()->json([
             'success' => true

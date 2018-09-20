@@ -257,11 +257,11 @@
         let amount = document.querySelector('input[name="amount"]').value;
         marketItem.amount = amount == '' ? 0 : amount;
         marketItem.price = document.querySelector('input[name="price"]').value;
-        marketItem.media_url = marketItemImage;
 
         let data = {};
         data._token = "{{csrf_token()}}";
         data.item = JSON.stringify(marketItem);
+        data.media_url = marketItemImage;
 
         $.post("{{url('marketplace')}}", data, function(res){
             if (res.success)
@@ -280,11 +280,11 @@
         let amount = document.querySelector('#form_editMarketItem input[name="amount"]').value;
         marketItem.amount = amount == '' ? 0 : amount;
         marketItem.price = document.querySelector('#form_editMarketItem input[name="price"]').value;
-        marketItem.media_url = marketItemImage;
 
         let data = {};
         data._token = "{{csrf_token()}}";
         data.item = JSON.stringify(marketItem);
+        data.media_url = marketItemImage;
 
         $.ajax({
             url: '{{url("marketplace")}}',

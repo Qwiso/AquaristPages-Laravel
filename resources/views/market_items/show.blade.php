@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="col">
-    <img class="img-fluid d-block mx-auto" src="{{$item->media_url}}">
+    <img class="img-fluid d-block mx-auto" src="{{Storage::disk('local')->get('market_images/'.$item->uuid.'.jpeg')}}">
 </div>
 <div class="col pb-2">
     <p class="m-0">

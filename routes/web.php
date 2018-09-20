@@ -6,7 +6,7 @@ Route::get('/', function () {
         return view('pages.login');
 
     if ($user->zipcode_id == null)
-        return view('pages.main')->with('set_zipcode', true);
+        return view('pages.main', compact('user'))->with('set_zipcode', true);
 
     return view('pages.main', compact('user'));
 });
