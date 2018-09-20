@@ -1,7 +1,7 @@
 @extends('templates.main')
 
 @section('content')
-    <h3>Hello, {{auth()->user()->name}}</h3>
+<h3>Hello, {{auth()->user()->name}}</h3>
 @if(isset($set_zipcode))
     Set your Zipcode to continue:
     <form id="setzip" action="{{url('user/setzip')}}" method="POST">
@@ -48,6 +48,6 @@
     </script>
     @append
 @else
-    @include('market_items.list', $items)
+    <!-- make some main page material -->
 @endif
 @endsection
