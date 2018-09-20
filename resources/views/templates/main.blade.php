@@ -160,7 +160,9 @@
                     var dataUrl = canvas.toDataURL('image/jpeg');
                     resetOrientation(dataUrl, marketItemImageOrientation, function(correctedImage){
                         marketItemImage = correctedImage;
+                        // REFACTOR
                         $("#form_createMarketItem .img-fluid")[0].src = marketItemImage;
+                        $("#form_editMarketItem .img-fluid")[0].src = marketItemImage;
                     });
                 };
                 image.src = readerEvent.target.result;
