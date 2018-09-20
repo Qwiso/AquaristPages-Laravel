@@ -40,7 +40,7 @@ class MarketplaceController extends Controller
         list($type, $data) = explode(';', $data);
         list(, $data)      = explode(',', $data);
         $data = base64_decode($data);
-        \File::put(public_path('market_images\\' . $item->uuid . '.jpeg'), $data);
+        \File::put(public_path('market_images/' . $item->uuid . '.jpeg'), $data);
 
         $newItem = auth()->user()->items()->create($item->toArray());
         return response()->json([
@@ -55,7 +55,7 @@ class MarketplaceController extends Controller
         $item = MarketItem::find($item_id);
         if (auth()->id() != $item->user_id) return response('stop that', 403);
 
-        \File::delete(public_path('market_images\\' . $item->uuid . '.jpeg'));
+        \File::delete(public_path('market_images/' . $item->uuid . '.jpeg'));
 
         $item->delete();
         return response('success');
@@ -71,7 +71,7 @@ class MarketplaceController extends Controller
         list($type, $data) = explode(';', $data);
         list(, $data)      = explode(',', $data);
         $data = base64_decode($data);
-        \File::put(public_path('market_images\\' . $oldItem->uuid . '.jpeg'), $data);
+        \File::put(public_path('market_images/' . $oldItem->uuid . '.jpeg'), $data);
 
         $oldItem->update($updatedItem);
         return response()->json([
