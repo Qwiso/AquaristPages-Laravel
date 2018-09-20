@@ -97,7 +97,6 @@
         });
     }
 
-
     function deleteItem(itemId){
         if(!confirm('Delete your listing?!')) return;
 
@@ -106,7 +105,7 @@
         data._token = "{{csrf_token()}}";
 
         $.ajax({
-            url: '{{url("marketplace/delete")}}',
+            url: '{{url("marketplace")}}',
             type: 'DELETE',
             data: data,
             success: function() {
@@ -115,7 +114,6 @@
             }
         });
     }
-
 
     function fileLoaded() {
         // Read in file
@@ -264,8 +262,39 @@
         data._token = "{{csrf_token()}}";
         data.item = JSON.stringify(marketItem);
 
-        $.post("{{url('marketplace/create')}}", data, function(res){
-            window.location.reload();
+        $.post("{{url('marketplace')}}", data, function(res){
+            if (res.success)
+                window.location.reload();
+            else
+                console.log(res);
+        });
+    }
+
+    function editMarketItemSubmit(e){
+        e.preventDefault();
+        e.stopPropagation();
+
+        let marketItem = {};
+        marketItem.title = document.querySelector('input[name="title"]').value;
+        marketItem.category = document.querySelector('select[name="category"]').value;
+        marketItem.description = document.querySelector('textarea[name="description"]').value;
+        let amount = document.querySelector('input[name="amount"]').value;
+        marketItem.amount = amount == '' ? 0 : amount;
+        marketItem.price = document.querySelector('input[name="price"]').value;
+        marketItem.media_url = marketItemImage;
+
+        let data = {};
+        data._token = "{{csrf_token()}}";
+        data.item = JSON.stringify(marketItem);
+
+        $.ajax({
+            url: '{{url("marketplace")}}',
+            type: 'PUT',
+            data: data,
+            success: function() {
+                $("#edit-item").modal('hide');
+                window.location.reload();
+            }
         });
     }
 </script>

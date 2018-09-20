@@ -92,7 +92,7 @@ Route::group(['middleware' => 'zipcode', 'prefix' => 'marketplace'], function(){
     Route::get('/', 'MarketplaceController@index');
     Route::get('item/edit/{id}', 'MarketplaceController@getEdit');
     Route::get('item/{id}', 'MarketplaceController@show');
-    Route::post('create', 'MarketplaceController@create');
-    Route::put('update', 'MarketplaceController@update');
-    Route::delete('delete', 'MarketplaceController@delete');
+    Route::post('/', 'MarketplaceController@create');
+    Route::put('/', 'MarketplaceController@update');
+    Route::delete('/', 'MarketplaceController@delete');
 });
