@@ -150,7 +150,7 @@
                     canvas.height = height;
                     canvas.getContext('2d').drawImage(image, 0, 0, width, height);
 
-                    var dataUrl = canvas.toDataURL('image/jpeg');
+                    var dataUrl = canvas.toDataURL('image/png');
                     resetOrientation(dataUrl, marketItemImageOrientation, function(correctedImage){
                         marketItemImage = correctedImage;
                         // REFACTOR
