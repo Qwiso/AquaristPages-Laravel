@@ -111,6 +111,7 @@
             data: data,
             success: function() {
                 $("#edit-item").modal('hide');
+                window.location.reload();
             }
         });
     }
@@ -264,7 +265,7 @@
         data.item = JSON.stringify(marketItem);
 
         $.post("{{url('marketplace/create')}}", data, function(res){
-            document.getElementById('form_createMarketItem').reset();
+            window.location.reload();
         });
     }
 </script>

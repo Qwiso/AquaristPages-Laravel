@@ -7,10 +7,7 @@ Route::get('/', function () {
     if (auth()->user()->zipcode == null)
         return view('pages.main')->with('set_zipcode', true);
 
-    $nearbyZipcodes = auth()->user()->getZipcodeIdsByRadius();
-    $items = \App\MarketItem::whereNotNull('amount')->where('amount', '>', 0)->whereIn('zipcode_id', $nearbyZipcodes)->orderBY('created_at', 'desc')->get();
-
-    return view('pages.main', compact('items'));
+    return view('pages.main');
 });
 
 Route::get('logout', function(){
@@ -45,12 +42,21 @@ Route::get('login', function(){
 Route::post('user/setzip', function(){
     $zipcode = request('zipcode');
 
-    $zip = \App\Zipcode::where('zipcode', $zipcode)->firstOrFail();
+    $zip = \App\Zipcode::where('zipcode', $zipcode)->first();
+
+    if (!$zip){
+        return response()->json([
+            'invalid' => true
+        ]);
+    }
 
     auth()->user()->zipcode_id = $zip->id;
     auth()->user()->save();
 
-    return redirect('/');
+    return response()->json([
+        'success' => true,
+        'zipcode' => $zip
+    ]);
 });
 
 Route::get('zipcodes/autocomplete', function(){

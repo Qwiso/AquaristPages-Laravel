@@ -7,7 +7,10 @@ use App\MarketItem;
 class MarketplaceController extends Controller
 {
     public function index() {
-        return view('pages.marketplace');
+        $nearbyZipcodes = auth()->user()->getZipcodeIdsByRadius();
+        $items = MarketItem::whereNotNull('amount')->where('amount', '>', 0)->whereIn('zipcode_id', $nearbyZipcodes)->orderBY('created_at', 'desc')->get();
+
+        return view('pages.marketplace', compact('items'));
     }
 
 

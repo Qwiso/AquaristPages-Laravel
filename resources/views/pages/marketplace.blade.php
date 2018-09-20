@@ -1,7 +1,6 @@
 @extends('templates.main')
 
 @section('content')
-<div class="row" id="items">
-
-</div>
+    @include('market_items.create')
+    @include('market_items.list', $items)
 @endsection
