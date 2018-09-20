@@ -1,13 +1,14 @@
 <?php
 
 Route::get('/', function () {
+    $user = auth()->user();
     if (!auth()->check())
         return view('pages.login');
 
-    if (auth()->user()->zipcode_id == null)
+    if ($user->zipcode_id == null)
         return view('pages.main')->with('set_zipcode', true);
 
-    return view('pages.main');
+    return view('pages.main', compact('user'));
 });
 
 Route::get('logout', function(){

@@ -1,6 +1,6 @@
 <form id="setzip" action="{{url('user/setzip')}}" method="POST">
     <label for="q">Set your Zipcode:</label>
-    <input id="q" value="{{auth()->user()->zipcode ? auth()->user()->zipcode->zipcode : ''}}" name="zipcode">
+    <input id="q" value="{{$user->zipcode_id ? $user->zipcode->zipcode : ''}}" name="zipcode">
     <input hidden type="text" name="_token" value="{{csrf_token()}}">
     <button type="submit" class="btn btn-primary btn-sm">Submit</button>
 </form>
