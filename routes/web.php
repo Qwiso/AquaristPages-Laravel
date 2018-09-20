@@ -4,7 +4,7 @@ Route::get('/', function () {
     if (!auth()->check())
         return view('pages.login');
 
-    if (auth()->user()->zipcode == null)
+    if (auth()->user()->zipcode_id == null)
         return view('pages.main')->with('set_zipcode', true);
 
     return view('pages.main');
