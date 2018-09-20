@@ -25,10 +25,6 @@ class CreateMarketItemsTable extends Migration
             $table->decimal('price');
             $table->timestamps();
         });
-
-        Schema::table('market_items', function (Blueprint $table){
-            DB::statement("ALTER TABLE `market_items` ADD `media_url` MEDIUMBLOB");
-        });
     }
 
     /**
