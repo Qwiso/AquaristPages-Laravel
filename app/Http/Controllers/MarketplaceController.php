@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\MarketItem;
-use Storage;
 
 class MarketplaceController extends Controller
 {
     public function index() {
         $user = auth()->user();
-        
+
         $nearbyZipcodes = $user->getZipcodeIdsByRadius();
         $localItems = MarketItem::whereNotNull('amount')->whereIn('zipcode_id', $nearbyZipcodes)->orderBY('created_at', 'desc')->get();
         \Cache::put($user->id.'localItems', $localItems, 1);
