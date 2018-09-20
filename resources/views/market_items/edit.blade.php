@@ -64,7 +64,7 @@
                                     {{--<input type="url" class="form-control" name="media_url" placeholder="imgur url..." onchange="imgurLinkChanged(this)">--}}
                                     <input type="file" accept="image/*" name="media_url" onchange="fileLoaded()">
                                 </div>
-                                <img src="{{asset('market_images/'.$item->uuid.'.png')}}" class="img-fluid d-block mx-auto pt-3">
+                                <img src="{{'data:image/png;base64,'.base64_encode(file_get_contents(asset('market_images/'.$item->uuid.'.png')))}}" class="img-fluid d-block mx-auto pt-3">
                             </div>
                         </div>
 

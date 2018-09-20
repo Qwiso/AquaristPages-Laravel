@@ -238,7 +238,7 @@
             ctx.drawImage(img, 0, 0, width, height);
 
             // export base64
-            callback(canvas.toDataURL('image/jpeg'));
+            callback(canvas.toDataURL('image/png'));
         };
 
         img.src = srcBase64;
