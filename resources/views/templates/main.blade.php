@@ -86,11 +86,6 @@
 <script>
     let albumid, isAlbum, marketItemImage, marketItemImageOrientation;
 
-    window.addEventListener("error", function (e) {
-        alert("Error occurred: " + e.error.message);
-        return false;
-    });
-
     function editItem(itemId){
         $.get("{{url('marketplace/item/edit')}}/" + itemId, function(res){
             $("#edit-item").remove();
