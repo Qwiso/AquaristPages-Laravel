@@ -33,7 +33,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mt-3" style="overflow-y: scroll;max-height: 300px;">
                     <div class="col pt-3">
                         @include('comments.create', $item)
                         @include('comments.list', ['comments' => $item->comments])

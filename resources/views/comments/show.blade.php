@@ -6,6 +6,9 @@
                 <a href="{{url('profile')}}/{{$comment->user->uuid}}">{{$comment->user->name}}</a> says: {{$comment->text}}
             </div>
         @else
+            <div class="d-block bg-white border p-3 mt-3 justify-content-around">
+                <a href="{{url('profile')}}/{{$comment->user->uuid}}">{{$comment->user->name}}</a> says: {{$comment->text}}
+            </div>
         @endif
     </div>
 </div>
