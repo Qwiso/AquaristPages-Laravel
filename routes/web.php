@@ -24,7 +24,6 @@ Route::get('logout', function(){
 });
 
 Route::get('login', function(){
-    Webpatser\Uuid\Uuid::generate();
     $key = request('super_secret_key');
 
     switch ($key) {

@@ -71,11 +71,13 @@ class MarketplaceController extends Controller
         $oldItem = MarketItem::where('uuid', $updatedItem['uuid'])->firstOrFail();
         if (auth()->id() != $oldItem->user_id) return response('stop that', 403);
 
-        $data = request('media_url');
-        list($type, $data) = explode(';', $data);
-        list(, $data)      = explode(',', $data);
-        $data = base64_decode($data);
-        \File::put(public_path('market_images/' . $oldItem->uuid . '.png'), $data);
+        $image = request('media_url');
+        if ($image) {
+            list($type, $image) = explode(';', $image);
+            list(, $image)      = explode(',', $image);
+            $image = base64_decode($image);
+            \File::put(public_path('market_images/' . $oldItem->uuid . '.png'), $image);
+        }
 
         $oldItem->update($updatedItem);
 
