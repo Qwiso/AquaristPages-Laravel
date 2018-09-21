@@ -34,6 +34,24 @@ class MarketplaceController extends Controller
     }
 
 
+    public function getItem($uuid) {
+        $radius_map = base64_encode(file_get_contents('https://maps.googleapis.com/maps/api/staticmap?center=33.8206,-84.3549&zoom=12&scale=1&size=400x200&maptype=roadmap&format=png&visual_refresh=true&key=AIzaSyCYHkj8sSYIxtHm_guGKtkxqJTRTPF4luE'));
+        $radius_map = "data:image/png;base64,$radius_map";
+
+        $item = MarketItem::where('uuid', $uuid)->with(['zipcode',
+            'comments' => function($q){
+                $q->with('user')->take(5);
+            }])->firstOrFail();
+        return view('market_items.show', compact('item', 'radius_map'))->render();
+    }
+
+
+    public function getEdit($id) {
+        $item = MarketItem::find($id);
+        return view('market_items.edit', compact('item'))->render();
+    }
+
+
     public function show($uuid) {
         $radius_map = base64_encode(file_get_contents('https://maps.googleapis.com/maps/api/staticmap?center=33.8206,-84.3549&zoom=12&scale=1&size=400x200&maptype=roadmap&format=png&visual_refresh=true&key=AIzaSyCYHkj8sSYIxtHm_guGKtkxqJTRTPF4luE'));
         $radius_map = "data:image/png;base64,$radius_map";
@@ -42,14 +60,10 @@ class MarketplaceController extends Controller
             'comments' => function($q){
                 $q->with('user')->take(5);
             }])->firstOrFail();
+
         return view('market_items.show', compact('item', 'radius_map'));
     }
 
-
-    public function getEdit($id) {
-        $item = MarketItem::find($id);
-        return view('market_items.edit', compact('item'))->render();
-    }
 
     public function create() {
         $item = new MarketItem(json_decode(request('item'), true));

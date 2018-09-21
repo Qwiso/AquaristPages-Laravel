@@ -96,6 +96,7 @@ Route::group(['prefix' => 'profile', 'middleware' => 'zipcode'], function(){
 
 Route::group(['prefix' => 'marketplace', 'middleware' => 'zipcode'], function(){
     Route::get('/', 'MarketplaceController@index');
+    Route::get('item/modal/{id}', 'MarketplaceController@getItem');
     Route::get('item/edit/{id}', 'MarketplaceController@getEdit');
     Route::get('item/{id}', 'MarketplaceController@show');
     Route::post('/', 'MarketplaceController@create');

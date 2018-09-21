@@ -1,7 +1,14 @@
 <div class="row">
     <div class="col">
-        <p class="bg-white border p-3 mt-3">
-            {{$comment->user->name}} says: {{$comment->text}}
-        </p>
+        @if(auth()->id() == $comment->user->id)
+            <div class="d-block bg-white border p-3 mt-3 justify-content-around">
+                <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                <a href="{{url('profile')}}/{{$comment->user->uuid}}">{{$comment->user->name}}</a> says: {{$comment->text}}
+            </div>
+        @else
+            <div class="d-inline bg-white border p-3 mt-3">
+                <a href="{{url('profile')}}/{{$comment->user->uuid}}">{{$comment->user->name}}</a> says: {{$comment->text}}
+            </div>
+        @endif
     </div>
 </div>

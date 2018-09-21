@@ -1,7 +1,7 @@
-@extends('templates.main')
+{{--@extends('templates.main')--}}
 
-@section('content')
-<div class="row justify-content-center">
+{{--@section('content')--}}
+<div class="row justify-content-center p-3">
     <div class="col">
         <div class="row justify-content-center">
             <div class="col-sm-6">
@@ -43,4 +43,4 @@
         </div>
     </div>
 </div>
-@endsection
+{{--@endsection--}}
