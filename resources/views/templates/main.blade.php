@@ -7,19 +7,19 @@
 
     <!-- COMMON TAGS -->
     <meta charset="utf-8">
-    <title>Aquarist Pages - {{request()->path() == "/" ? "Home" : request()->path()}}</title>
+    <title>Aquarist Pages - {{$page->path or request()->path() == "/" ? "Home" : ucfirst(request()->path())}}</title>
 
     <!-- Search Engine -->
     <meta name="description" content="{{$page->desc or "A social tool for all aquarists. breeders, hobbyist, or club related"}}">
     {{--<meta name="image" content="http://localhost/website_image.png">--}}
 
             <!-- Schema.org for Google -->
-    <meta itemprop="name" content="Aquarist Pages - {{$page->path or request()->path()}}">
+    <meta itemprop="name" content="Aquarist Pages - {{$page->path or ucfirst(request()->path())}}">
     <meta itemprop="description" content="{{$page->desc or "A social tool for all aquarists. breeders, hobbyist, or club related"}}">
     {{--<meta itemprop="image" content="http://localhost/website_image.png">--}}
 
             <!-- Open Graph general (Facebook, Pinterest & Google+) -->
-    <meta name="og:title" content="Aquarist Pages - {{$page->path or request()->path()}}">
+    <meta name="og:title" content="Aquarist Pages - {{$page->path or ucfirst(request()->path())}}">
     <meta name="og:description" content="{{$page->desc or "A social tool for all aquarists. breeders, hobbyist, or club related"}}">
     {{--<meta name="og:image" content="http://localhost/website_preview.png">--}}
     <meta name="og:url" content="{{url('/')}}">
