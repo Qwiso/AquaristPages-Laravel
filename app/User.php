@@ -58,8 +58,8 @@ class User extends Authenticatable
         return DB::table('zipcodes')->whereRaw($sql)->pluck('id');
     }
 
-    function getZipcodeIdsByState()
+    function getZipcodeIdsByState($state)
     {
-        return Zipcode::where('state', auth()->user()->zipcode->state)->pluck('id');
+        return Zipcode::where('state', $state)->pluck('id');
     }
 }

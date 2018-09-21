@@ -10,7 +10,24 @@ class MarketplaceController extends Controller
     public function index() {
         $user = auth()->user();
 
-        $nearbyZipcodes = $user->getZipcodeIdsByRadius();
+        switch(request('search_radius')){
+            case 50:
+                $nearbyZipcodes = $user->getZipcodeIdsByRadius(50);
+                break;
+            case 100:
+                $nearbyZipcodes = $user->getZipcodeIdsByRadius(100);
+                break;
+            case 500:
+                $nearbyZipcodes = $user->getZipcodeIdsByRadius(500);
+                break;
+            case "state":
+                $nearbyZipcodes = $user->getZipcodeIdsByState($user->zipcode->state);
+                break;
+            default:
+                $nearbyZipcodes = $user->getZipcodeIdsByRadius(50);
+                break;
+        }
+
         $localItems = MarketItem::whereNotNull('amount')->whereIn('zipcode_id', $nearbyZipcodes)->orderBY('created_at', 'desc')->with('zipcode')->get();
 
         return view('pages.marketplace', compact('localItems'));
