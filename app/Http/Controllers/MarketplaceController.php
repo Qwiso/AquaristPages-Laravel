@@ -11,7 +11,6 @@ class MarketplaceController extends Controller
 
         $nearbyZipcodes = $user->getZipcodeIdsByRadius();
         $localItems = MarketItem::whereNotNull('amount')->whereIn('zipcode_id', $nearbyZipcodes)->orderBY('created_at', 'desc')->get();
-        \Cache::put($user->id.'localItems', $localItems, 1);
 
         return view('pages.marketplace', compact('localItems'));
     }
@@ -30,9 +29,8 @@ class MarketplaceController extends Controller
 
     public function create() {
         $item = new MarketItem(json_decode(request('item'), true));
-
-        $item->uuid = md5($item->toJson());
         $item->zipcode_id = auth()->user()->zipcode->id;
+        $item->uuid = md5($item->toJson());
 
         $data = request('media_url');
         list($type, $data) = explode(';', $data);
@@ -41,6 +39,7 @@ class MarketplaceController extends Controller
         \File::put(public_path('market_images/' . $item->uuid . '.png'), $data);
 
         $newItem = auth()->user()->items()->create($item->toArray());
+
         return response()->json([
             'success' => true,
             'item' => $newItem
@@ -72,6 +71,7 @@ class MarketplaceController extends Controller
         \File::put(public_path('market_images/' . $oldItem->uuid . '.png'), $data);
 
         $oldItem->update($updatedItem);
+
         return response()->json([
             'success' => true
         ]);

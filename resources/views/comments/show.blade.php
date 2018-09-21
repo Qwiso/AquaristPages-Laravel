@@ -1,1 +1,1 @@
-<div></div>
+<div class="row">{{$comment->text}}</div>

@@ -25,6 +25,8 @@ class FacebookController extends Controller
             $user->facebook_access_token = $authUser->token;
             $user->facebook_refresh_token = $authUser->refreshToken or null;
             $user->facebook_token_expires = $authUser->expiresIn;
+            $uuid = md5($user->toJson());
+            $user->uuid = $uuid;
             $user->save();
         }
 

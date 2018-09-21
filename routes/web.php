@@ -1,12 +1,29 @@
 <?php
 
 Route::get('/', function () {
-    $user = auth()->user();
+//    $user = \App\User::find(1);
+//    $comment = new \App\Comment();
+//    $comment->text = "this is a test. plz ignore";
+//    $comment->user_id = $user->id;
+//
+//    $item = \App\MarketItem::find(1);
+//    $item->comments()->create($comment->toArray());
+//
+//    return "huzzah";
+
     if (!auth()->check())
         return view('pages.login');
 
+    $user = auth()->user();
+
     if ($user->zipcode_id == null)
         return view('pages.main', compact('user'))->with('set_zipcode', true);
+
+
+    if (!$user->uuid){
+        $user->uuid = md5($user->toJson());
+        $user->save();
+    }
 
     return view('pages.main', compact('user'));
 });
@@ -17,6 +34,7 @@ Route::get('logout', function(){
 });
 
 Route::get('login', function(){
+    Webpatser\Uuid\Uuid::generate();
     $key = request('super_secret_key');
 
     switch ($key) {
@@ -82,14 +100,12 @@ Route::group(['prefix' => 'facebook'], function(){
     Route::get('callback', 'FacebookController@handleProviderCallback');
 });
 
-
-Route::group(['middleware' => 'zipcode', 'prefix' => 'profile'], function(){
+Route::group(['prefix' => 'profile', 'middleware' => 'zipcode'], function(){
     Route::get('/', 'ProfileController@index');
-    Route::get('user/{id}', 'ProfileController@index');
+    Route::get('/{id}', 'ProfileController@show');
 });
 
-
-Route::group(['middleware' => 'zipcode', 'prefix' => 'marketplace'], function(){
+Route::group(['prefix' => 'marketplace', 'middleware' => 'zipcode'], function(){
     Route::get('/', 'MarketplaceController@index');
     Route::get('item/edit/{id}', 'MarketplaceController@getEdit');
     Route::get('item/{id}', 'MarketplaceController@show');

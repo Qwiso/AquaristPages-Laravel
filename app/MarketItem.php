@@ -43,4 +43,5 @@ class MarketItem extends Model
 
     public function user() { return $this->belongsTo(User::class); }
     public function zipcode() { return $this->belongsTo(Zipcode::class); }
+    public function comments() { return $this->morphMany(Comment::class, 'commentable'); }
 }
