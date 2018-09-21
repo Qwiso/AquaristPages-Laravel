@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\MarketItem;
+use Illuminate\Database\Eloquent\Builder;
 
 class MarketplaceController extends Controller
 {
@@ -17,7 +18,10 @@ class MarketplaceController extends Controller
 
 
     public function show($uuid) {
-        $item = MarketItem::where('uuid', $uuid)->with(['zipcode','comments'])->firstOrFail();
+        $item = MarketItem::where('uuid', $uuid)->with(['zipcode',
+            'comments' => function($q){
+                $q->with('user')->take(5);
+            }])->firstOrFail();
         return view('market_items.show', compact('item'));
     }
 
