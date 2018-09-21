@@ -346,9 +346,6 @@
         data._token = "{{csrf_token()}}";
         data.comment = JSON.stringify(comment);
 
-        console.log(data);
-        return;
-
         $.post("{{url('comments')}}", data, function(res){
             if (res.success)
                 window.location.reload();

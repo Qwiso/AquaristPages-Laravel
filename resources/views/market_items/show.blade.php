@@ -36,7 +36,7 @@
                 <div class="row">
                     <div class="col pt-3">
                         @include('comments.create', $item)
-                        @include('comments.list', $item)
+                        @include('comments.list', ['comments' => $item->comments])
                     </div>
                 </div>
             </div>

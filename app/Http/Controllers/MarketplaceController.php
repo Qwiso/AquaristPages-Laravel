@@ -17,7 +17,7 @@ class MarketplaceController extends Controller
 
 
     public function show($uuid) {
-        $item = MarketItem::where('uuid', $uuid)->with('zipcode')->firstOrFail();
+        $item = MarketItem::where('uuid', $uuid)->with(['zipcode','comments'])->firstOrFail();
         return view('market_items.show', compact('item'));
     }
 

@@ -1,3 +1,3 @@
-@foreach($item->comments->take(5) as $comment)
+@foreach($comments as $comment)
     @include('comments.show', $comment)
 @endforeach

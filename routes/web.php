@@ -113,3 +113,7 @@ Route::group(['prefix' => 'marketplace', 'middleware' => 'zipcode'], function(){
     Route::put('/', 'MarketplaceController@update');
     Route::delete('/', 'MarketplaceController@delete');
 });
+
+Route::group(['prefix' => 'comments'], function() {
+    Route::post('/', 'CommentController@create');
+});
