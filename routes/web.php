@@ -2,7 +2,7 @@
 
 Route::get('/', function () {
     if (!auth()->check())
-        return view('pages.login');
+        return view('pages.recruitment');
 
     $user = auth()->user();
 
@@ -16,11 +16,6 @@ Route::get('/', function () {
     }
 
     return view('pages.main', compact('user'));
-});
-
-Route::get('logout', function(){
-    auth()->logout();
-    return redirect('/');
 });
 
 Route::get('login', function(){
@@ -48,6 +43,15 @@ Route::get('login', function(){
     }
 
     return redirect('/');
+});
+
+Route::get('logout', function(){
+    auth()->logout();
+    return redirect('/');
+});
+
+Route::get('recruitment', function(){
+    return view('pages.recruitment');
 });
 
 Route::post('user/setzip', function(){
