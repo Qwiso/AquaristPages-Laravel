@@ -26,6 +26,9 @@ Route::get('logout', function(){
 Route::get('login', function(){
     $key = request('super_secret_key');
 
+    if (!$key)
+        return redirect('/');
+
     switch ($key) {
         case "erboh":
             auth()->loginUsingId(2);

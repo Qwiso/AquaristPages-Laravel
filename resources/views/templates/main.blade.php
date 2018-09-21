@@ -7,7 +7,7 @@
 
     <!-- COMMON TAGS -->
     <meta charset="utf-8">
-    <title>Aquarist Pages - {{request()->path()}}</title>
+    <title>Aquarist Pages - {{request()->path() == "/" ? "Home" : request()->path()}}</title>
 
     <!-- Search Engine -->
     <meta name="description" content="{{$page->desc or "A social tool for all aquarists. breeders, hobbyist, or club related"}}">
