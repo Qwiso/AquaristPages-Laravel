@@ -1,34 +1,43 @@
 @extends('templates.main')
 
 @section('content')
-<div class="col-8">
-    <div class="row justify-content-center">
-        <div class="col-lg-5 col-md-6 col-sm-6">
-            <img class="img-fluid d-block mx-auto" src="{{asset('market_images/'.$item->uuid.'.png')}}">
-        </div>
-
-        <div class="col-lg-7 col-md-6 col-sm-6">
-            <div class="row">
-                <div class="col">
-                    <p class="m-0">
-                        <b>{{$item->title}}</b>
-                        <br/>
-                        Amount: {{$item->amount}}
-                        <br/>
-                        Price: ${{$item->price}}
-                        <br/>
-                        <small>from <a href="{{url('profile')}}/{{$item->user->uuid}}">{{$item->user->name}}</a> in {{$item->zipcode->city}}, {{$item->zipcode->state_abbr}}</small>
-                    </p>
-
-                    <p class="m-0 pt-3">
-                        {{$item->description}}
-                    </p>
-                </div>
+<div class="row justify-content-center">
+    <div class="col">
+        <div class="row justify-content-center">
+            <div class="col-sm-6">
+                <img class="img-fluid d-block mx-auto" src="{{asset('market_images/'.$item->uuid.'.png')}}">
             </div>
-            <div class="row">
-                <div class="col">
-                    @include('comments.create', $item)
-                    @include('comments.list', $item)
+
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col">
+                        <p class="m-0 pt-3">
+                            <b>{{$item->title}}</b>
+                            <br/>
+                            Amount: {{$item->amount}}
+                            <br/>
+                            Price: ${{$item->price}}
+                            <br/>
+                            <small>from <a href="{{url('profile')}}/{{$item->user->uuid}}">{{$item->user->name}}</a> in {{$item->zipcode->city}}, {{$item->zipcode->state_abbr}}</small>
+                        </p>
+
+                        <p class="m-0 pt-2 pb-3">
+                            {{$item->description}}
+                        </p>
+
+                        <div class="mx-auto" style="width:300px;height:150px;overflow:hidden;position:relative">
+                            <div class="overlay-circle" style="top:0;left:75px;width:150px;height:150px;position:absolute;box-shadow:0 0 0 500px rgba(0,0,0,0.25);border-radius:500px;z-index:1000"></div>
+                            <div class="overlay-behind" style="width:100%;height:100%;position:absolute;top:0;left:0;">
+                                <img class="img-fluid d-block mx-auto" src="https://maps.googleapis.com/maps/api/staticmap?center={{$item->zipcode->lat.','.$item->zipcode->lon}}&zoom=12&scale=1&size=400x200&maptype=roadmap&format=png&visual_refresh=true&key=AIzaSyCYHkj8sSYIxtHm_guGKtkxqJTRTPF4luE">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        @include('comments.create', $item)
+                        @include('comments.list', $item)
+                    </div>
                 </div>
             </div>
         </div>

@@ -10,14 +10,14 @@ class MarketplaceController extends Controller
         $user = auth()->user();
 
         $nearbyZipcodes = $user->getZipcodeIdsByRadius();
-        $localItems = MarketItem::whereNotNull('amount')->whereIn('zipcode_id', $nearbyZipcodes)->orderBY('created_at', 'desc')->get();
+        $localItems = MarketItem::whereNotNull('amount')->whereIn('zipcode_id', $nearbyZipcodes)->orderBY('created_at', 'desc')->with('zipcode')->get();
 
         return view('pages.marketplace', compact('localItems'));
     }
 
 
     public function show($uuid) {
-        $item = MarketItem::where('uuid', $uuid)->firstOrFail();
+        $item = MarketItem::where('uuid', $uuid)->with('zipcode')->firstOrFail();
         return view('market_items.show', compact('item'));
     }
 

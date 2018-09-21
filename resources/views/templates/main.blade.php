@@ -44,6 +44,16 @@
             border-color: rgba(0,0,0,0.2);
         }
 
+        .circle-overly {
+            overflow: hidden;
+            position: absolute;
+            border: solid 1px #555;
+            box-shadow: 0 0 0 200px rgba(0,0,0,0.8);
+            border-radius:100px;
+            width: 200px;
+            height: 200px;
+        }
+
         .active img {
             margin: 0 auto;
         }
