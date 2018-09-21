@@ -38,7 +38,7 @@ class MarketplaceController extends Controller
         $radius_map = base64_encode(file_get_contents('https://maps.googleapis.com/maps/api/staticmap?center=33.8206,-84.3549&zoom=12&scale=1&size=400x200&maptype=roadmap&format=png&visual_refresh=true&key=AIzaSyCYHkj8sSYIxtHm_guGKtkxqJTRTPF4luE'));
         $radius_map = "data:image/png;base64,$radius_map";
 
-        $item = MarketItem::where('uuid', $uuid)->with(['zipcode',
+        $item = MarketItem::where('uuid', $uuid)->with(['user','zipcode',
             'comments' => function($q){
                 $q->with('user')->take(5);
             }])->firstOrFail();
