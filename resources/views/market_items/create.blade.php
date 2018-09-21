@@ -73,7 +73,7 @@
 
                         <div class="row pb-3">
                             <div class="col d-flex justify-content-end">
-                                <button type="button" class="btn btn-primary" onclick="createMarketItemSubmit()">Create</button>
+                                <button type="submit" class="btn btn-primary">Create</button>
                             </div>
                         </div>
                     </div>

@@ -15,6 +15,16 @@
     <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <style>
+        .list-group-item {
+            border: 0 !important;
+            padding: .25rem .5rem !important;
+        }
+
+        textarea {
+            resize: none !important;
+        }
+
+
         .btn-mine {
             color: #fff;
         }
@@ -43,7 +53,6 @@
             background-color: #F96854;
             border-color: rgba(0,0,0,0.2);
         }
-
         .circle-overly {
             overflow: hidden;
             position: absolute;
@@ -52,21 +61,6 @@
             border-radius:100px;
             width: 200px;
             height: 200px;
-        }
-
-        .active img {
-            margin: 0 auto;
-        }
-
-        .sidebar-item:hover {
-            transition: 300ms cubic-bezier(.08,.52,.52,1) background-color, 400ms cubic-bezier(.08,.52,.52,1) border-color, 400ms cubic-bezier(.08,.52,.52,1) opacity;
-            cursor: pointer;
-            background-color: #f9f2bd;
-        }
-
-        .list-group-item {
-            border: 0 !important;
-            padding: .25rem .5rem !important;
         }
     </style>
 </head>
@@ -91,10 +85,32 @@
 <script defer src="//use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-{{--<script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>--}}
+<script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="//stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 <script>
     let albumid, isAlbum, marketItemImage, marketItemImageOrientation;
+
+    $(function(){
+        document.addEventListener('submit', function(e){
+            e.preventDefault();
+            e.stopPropagation();
+
+            let form = e.target;
+            let id = form.id;
+
+            switch (id) {
+                case "form_createMarketItem":
+                    createMarketItemSubmit(form);
+                    break;
+                case "form_editMarketItem":
+                    editMarketItemSubmit(form);
+                    break;
+                case "form_createComment":
+                    createCommentSubmit(form);
+                    break;
+            }
+        });
+    });
 
     function editItem(itemId){
         $.get("{{url('marketplace/item/edit')}}/" + itemId, function(res){
@@ -254,14 +270,14 @@
         img.src = srcBase64;
     }
 
-    function createMarketItemSubmit() {
+    function createMarketItemSubmit(form) {
         let marketItem = {};
-        marketItem.title = document.querySelector('input[name="title"]').value;
-        marketItem.category = document.querySelector('select[name="category"]').value;
-        marketItem.description = document.querySelector('textarea[name="description"]').value;
-        let amount = document.querySelector('input[name="amount"]').value;
+        marketItem.title = form.querySelector('input[name="title"]').value;
+        marketItem.category = form.querySelector('select[name="category"]').value;
+        marketItem.description = form.querySelector('textarea[name="description"]').value;
+        let amount = form.querySelector('input[name="amount"]').value;
         marketItem.amount = amount == '' ? 0 : amount;
-        marketItem.price = document.querySelector('input[name="price"]').value;
+        marketItem.price = form.querySelector('input[name="price"]').value;
 
         let data = {};
         data._token = "{{csrf_token()}}";
@@ -276,15 +292,15 @@
         });
     }
 
-    function editMarketItemSubmit(e){
+    function editMarketItemSubmit(form){
         let marketItem = {};
-        marketItem.uuid = document.querySelector('#form_editMarketItem input[name="uuid"]').value;
-        marketItem.title = document.querySelector('#form_editMarketItem input[name="title"]').value;
-        marketItem.category = document.querySelector('#form_editMarketItem select[name="category"]').value;
-        marketItem.description = document.querySelector('#form_editMarketItem textarea[name="description"]').value;
-        let amount = document.querySelector('#form_editMarketItem input[name="amount"]').value;
+        marketItem.uuid = form.querySelector('input[name="uuid"]').value;
+        marketItem.title = form.querySelector('input[name="title"]').value;
+        marketItem.category = form.querySelector('select[name="category"]').value;
+        marketItem.description = form.querySelector('textarea[name="description"]').value;
+        let amount = form.querySelector('input[name="amount"]').value;
         marketItem.amount = amount == '' ? 0 : amount;
-        marketItem.price = document.querySelector('#form_editMarketItem input[name="price"]').value;
+        marketItem.price = form.querySelector('input[name="price"]').value;
 
         let data = {};
         data._token = "{{csrf_token()}}";
@@ -298,6 +314,46 @@
             success: function() {
                 window.location.reload();
             }
+        });
+    }
+
+    function createCommentSubmit(form){
+        let box = form.querySelector('textarea');
+
+        let comment = {};
+        comment.text = box.value;
+        comment.item_id = box.dataset.itemId;
+
+        if (comment.text.length == 0 || comment.text == "") {
+            box.title = "Comments cannot be blank";
+            $(box).tooltip('show');
+            setTimeout(function(){
+                $(box).tooltip('hide');
+            }, 3000);
+            return;
+        }
+
+        if (comment.text.length > 420) {
+            box.title = 420 - comment.text.length + " too many characters";
+            $(box).tooltip('show');
+            setTimeout(function(){
+                $(box).tooltip('hide');
+            }, 3000);
+            return;
+        }
+
+        let data = {};
+        data._token = "{{csrf_token()}}";
+        data.comment = JSON.stringify(comment);
+
+        console.log(data);
+        return;
+
+        $.post("{{url('comments')}}", data, function(res){
+            if (res.success)
+                window.location.reload();
+            else
+                console.log(res);
         });
     }
 </script>

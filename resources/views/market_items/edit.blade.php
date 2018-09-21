@@ -72,7 +72,7 @@
                             <div class="col d-flex justify-content-between">
                                 <input hidden type="text" name="uuid" value="{{$item->uuid}}">
                                 <button type="button" class="btn btn-danger" onclick="deleteItem({{$item->id}})">Delete</button>
-                                <button type="button" class="btn btn-primary" onclick="editMarketItemSubmit()">Update</button>
+                                <button type="submit" class="btn btn-primary">Update</button>
                             </div>
                         </div>
                     </div>
