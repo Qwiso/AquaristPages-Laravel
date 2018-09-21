@@ -1,10 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{env('APP_NAME')}}</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <meta http-equiv="content-type" content="text/html" charset="utf-8">
+
+    <!-- COMMON TAGS -->
+    <meta charset="utf-8">
+    <title>Aquarist Pages - {{request()->path()}}</title>
+
+    <!-- Search Engine -->
+    <meta name="description" content="{{$page->desc or "A social tool for all aquarists. breeders, hobbyist, or club related"}}">
+    {{--<meta name="image" content="http://localhost/website_image.png">--}}
+
+            <!-- Schema.org for Google -->
+    <meta itemprop="name" content="Aquarist Pages - {{$page->path or request()->path()}}">
+    <meta itemprop="description" content="{{$page->desc or "A social tool for all aquarists. breeders, hobbyist, or club related"}}">
+    {{--<meta itemprop="image" content="http://localhost/website_image.png">--}}
+
+            <!-- Open Graph general (Facebook, Pinterest & Google+) -->
+    <meta name="og:title" content="Aquarist Pages - {{$page->path or request()->path()}}">
+    <meta name="og:description" content="{{$page->desc or "A social tool for all aquarists. breeders, hobbyist, or club related"}}">
+    {{--<meta name="og:image" content="http://localhost/website_preview.png">--}}
+    <meta name="og:url" content="{{url('/')}}">
+    <meta name="og:site_name" content="Aquarist Pages">
+    <meta name="og:type" content="website">
+
     @yield('html-head')
     <link rel="shortcut icon" href="/favicon.ico"/>
     <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
