@@ -2,7 +2,7 @@
 
 Route::get('/', function () {
     if (!auth()->check())
-        return view('pages.recruitment');
+        return redirect('login');
 
     $user = auth()->user();
 
@@ -22,7 +22,7 @@ Route::get('login', function(){
     $key = request('super_secret_key');
 
     if (!$key)
-        return redirect('/');
+        return view('pages.login');
 
     switch ($key) {
         case "erboh":
