@@ -1,16 +1,6 @@
 <?php
 
 Route::get('/', function () {
-//    $user = \App\User::find(1);
-//    $comment = new \App\Comment();
-//    $comment->text = "this is a test. plz ignore";
-//    $comment->user_id = $user->id;
-//
-//    $item = \App\MarketItem::find(1);
-//    $item->comments()->create($comment->toArray());
-//
-//    return "huzzah";
-
     if (!auth()->check())
         return view('pages.login');
 
