@@ -42,7 +42,7 @@ class MarketplaceController extends Controller
             'comments' => function($q){
                 $q->with('user')->take(5);
             }])->firstOrFail();
-        return view('market_items.show', compact('item', 'radius_map'))->render();
+        return view('market_items.modal', compact('item', 'radius_map'))->render();
     }
 
 
