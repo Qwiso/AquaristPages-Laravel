@@ -24,19 +24,10 @@
 
 @section('post-script')
 <script>
-    $('div[data-for]').on('click', function(){
-
+    let popovers = $('div[data-for]');
+    popovers.on('click', function(){
         $(this).popover('show');
-
-        $('div[data-for]').not(this).popover('hide');
-//        let dataFor = this.dataset.for;
-//
-//        $(this).popover({
-//            html: true,
-//            content: function(){
-//                return document.getElementById("popover-content-" + dataFor);
-//            }
-//        }).popover('show');
+        popovers.not(this).popover('hide');
     });
 </script>
 @append
