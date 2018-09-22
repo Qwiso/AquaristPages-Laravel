@@ -1,4 +1,4 @@
-<div class="market-item d-xs-flex d-inline-block shadow mr-3 mb-3" style="min-width: 245px; max-width: 245px; min-height: 305px; max-height: 305px;">
+<div class="market-item d-xs-flex d-sm-inline-block shadow mr-3 mb-3" style="min-width: 245px; max-width: 245px; min-height: 305px; max-height: 305px;">
     @if(auth()->id() == $item->user_id)
     <div class="row justify-content-end pr-3">
         <div class="position-absolute btn btn-secondary pt-0 pb-1 px-1" onclick="editItem({{$item->id}})"><i class="fa fa-xs fa-edit"></i></div>
@@ -9,7 +9,7 @@
     </div>
     <div style="overflow: hidden; display: flex; align-items: center; min-width: 245px; max-width: 245px; min-height: 250px; max-height: 250px;">
         {{--<a href="{{url('marketplace/item')}}/{{$item->uuid}}"><img src="{{asset('market_images/'.$item->uuid.'.png')}}" width="245px"></a>--}}
-        <a onclick="loadMarketItem('{{$item->uuid}}')"><img src="{{asset('market_images/'.$item->uuid.'.png')}}" width="245px"></a>
+        <a style="cursor: pointer;" onclick="loadMarketItem('{{$item->uuid}}')"><img src="{{asset('market_images/'.$item->uuid.'.png')}}" width="245px"></a>
     </div>
     <div class="row pb-2">
         <div class="col mx-2 text-truncate">
