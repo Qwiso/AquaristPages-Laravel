@@ -12,11 +12,15 @@
                 <small><b>All feedback considered</b></small>
             </p>
             <div class="w-100 text-center">
-                <small><b>Contact Me</b> - click to reveal url or email</small>
+                <small><b>Contact Me</b> - click to reveal</small>
             </div>
-            <div class="w-100 d-flex justify-content-center pt-2">
-                <div class="btn btn-facebook mx-3" data-for="facebook" data-toggle="popover" data-html="true" data-trigger="click" data-placement="bottom" data-content="<a href='https://www.facebook.com/zjones5487'>https://www.facebook.com/zjones5487</a>"><i class="fab fa-facebook"></i> Facebook</div>
-                <div class="btn btn-secondary mx-3" data-for="email" data-toggle="popover" data-html="true" data-trigger="click" data-placement="bottom" data-content="qwisodev@gmail.com"><i class="fa fa-envelope"></i> @gmail.com</div>
+            <div class="w-100 d-flex flex-wrap justify-content-center pt-2">
+                <div class="my-2">
+                    <div class="btn btn-facebook mx-3" data-for="facebook" data-toggle="popover" data-html="true" data-trigger="click" data-placement="bottom" data-content="<a href='https://www.facebook.com/zjones5487'>https://www.facebook.com/zjones5487</a>"><i class="fab fa-facebook"></i> Facebook</div>
+                </div>
+                <div class="my-2">
+                    <div class="btn btn-secondary mx-3" data-for="email" data-toggle="popover" data-html="true" data-trigger="click" data-placement="bottom" data-content="qwisodev@gmail.com"><i class="fa fa-envelope"></i> @gmail.com</div>
+                </div>
             </div>
         </div>
     </div>
