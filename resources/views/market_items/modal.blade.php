@@ -1,6 +1,6 @@
 <div class="modal-body">
     <div class="row d-flex justify-content-end pr-3">
-        <div class="col d-md-none">
+        <div class="col">
             <h4 class="modal-title">{{$item->title}}</h4>
         </div>
         <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close">
@@ -17,18 +17,14 @@
                 <div class="col-md-6">
                     <div class="row">
                         <div class="col">
-                            <h4>{{$item->title}}</h4>
-
-                            <p class="m-0">
-                                <small>from <a href="{{url('profile')}}/{{$item->user->uuid}}">{{$item->user->name}}</a> in {{$item->zipcode->city}}, {{$item->zipcode->state_abbr}}</small>
-                            </p>
-
-                            <hr>
-
                             <h4 class="m-0">${{$item->price}}</h4>
 
                             <p class="m-0 py-3">
                                 {{$item->description}}
+                            </p>
+
+                            <p class="m-0 pb-3">
+                                <small>from <a href="{{url('profile')}}/{{$item->user->uuid}}">{{$item->user->name}}</a> in {{$item->zipcode->city}}, {{$item->zipcode->state_abbr}}</small>
                             </p>
 
                             <div style="width:300px;height:150px;overflow:hidden;position:relative">
