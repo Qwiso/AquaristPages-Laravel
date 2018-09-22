@@ -10,17 +10,17 @@
     <title>Aquarist Pages - {{$page->path or request()->path() == "/" ? "Home" : ucwords(request()->path())}}</title>
 
     <!-- Search Engine -->
-    <meta name="description" content="{{$page->desc or "A social tool for any breeder, hobbyist, or club related needs"}}">
+    <meta name="description" content="{{$page->desc or "A social tool for your breeder, hobbyist, or club related needs"}}">
     {{--<meta name="image" content="http://localhost/website_image.png">--}}
 
             <!-- Schema.org for Google -->
     <meta itemprop="name" content="Aquarist Pages - {{$page->path or ucwords(request()->path())}}">
-    <meta itemprop="description" content="{{$page->desc or "A social tool for any breeder, hobbyist, or club related needs"}}">
+    <meta itemprop="description" content="{{$page->desc or "A social tool for your breeder, hobbyist, or club related needs"}}">
     {{--<meta itemprop="image" content="http://localhost/website_image.png">--}}
 
             <!-- Open Graph general (Facebook, Pinterest & Google+) -->
     <meta name="og:title" content="Aquarist Pages - {{$page->path or ucwords(request()->path())}}">
-    <meta name="og:description" content="{{$page->desc or "A social tool for any breeder, hobbyist, or club related needs"}}">
+    <meta name="og:description" content="{{$page->desc or "A social tool for your breeder, hobbyist, or club related needs"}}">
     {{--<meta name="og:image" content="http://localhost/website_preview.png">--}}
     <meta name="og:url" content="{{url('/')}}">
     <meta name="og:site_name" content="Aquarist Pages">
