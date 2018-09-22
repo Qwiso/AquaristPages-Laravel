@@ -51,7 +51,9 @@ Route::get('logout', function(){
 });
 
 Route::get('recruitment', function(){
-    return view('pages.recruitment');
+    $page = (object)[];
+    $page->desc = 'Get involved with creating a new social tool made for aquarists';
+    return view('pages.recruitment', compact('page'));
 });
 
 Route::post('user/setzip', function(){
