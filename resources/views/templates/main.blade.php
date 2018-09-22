@@ -11,24 +11,24 @@
 
     <!-- Search Engine -->
     <meta name="description" content="{{$page->desc or "A social tool for your breeder, hobbyist, or club related needs"}}">
-    <meta name="image" content="{{asset('favicon.png')}}">
+    <meta name="image" content="{{secure_asset('favicon.png')}}">
 
     <!-- Schema.org for Google -->
     <meta itemprop="name" content="Aquarist Pages - {{$page->path or ucwords(request()->path())}}">
     <meta itemprop="description" content="{{$page->desc or "A social tool for your breeder, hobbyist, or club related needs"}}">
-    <meta itemprop="image" content="{{asset('favicon.png')}}">
+    <meta itemprop="image" content="{{secure_asset('favicon.png')}}">
 
     <!-- Open Graph general (Facebook, Pinterest & Google+) -->
     <meta name="og:title" content="Aquarist Pages - {{$page->path or ucwords(request()->path())}}">
     <meta name="og:description" content="{{$page->desc or "A social tool for your breeder, hobbyist, or club related needs"}}">
-    <meta name="og:image" content="{{asset('favicon.png')}}">
+    <meta name="og:image" content="{{secure_asset('favicon.png')}}">
     <meta name="og:url" content="{{url('/')}}">
     <meta name="og:site_name" content="Aquarist Pages">
     <meta name="og:type" content="website">
 
     @yield('html-head')
     <!-- original svg located at https://openclipart.org/detail/84031/fish -->
-    <link rel="shortcut icon" href="{{asset('favicon.ico')}}"/>
+    <link rel="shortcut icon" href="{{secure_asset('favicon.ico')}}"/>
     <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link rel="stylesheet=" href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
