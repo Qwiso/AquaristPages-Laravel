@@ -1,4 +1,4 @@
-<div class="col pb-3">
+<div class="col">
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#create-item">
         <i class="fa fa-plus"></i> Create a New Item
     </button>
@@ -49,6 +49,12 @@
                             <div class="row pb-3">
                                 <div class="col">
                                     <textarea rows="3" class="form-control" name="description" placeholder="describe your item..."></textarea>
+                                </div>
+                            </div>
+
+                            <div class="row pb-3">
+                                <div class="col">
+                                    @include('market_items.setzip')
                                 </div>
                             </div>
 
