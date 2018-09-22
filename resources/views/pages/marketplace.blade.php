@@ -30,9 +30,5 @@
     </div>
 </div>
 
-<div class="row pt-3">
-    <div class="col d-flex flex-wrap justify-content-center justify-content-md-start">
-        @include('market_items.list', ['items'=>$localItems])
-    </div>
-</div>
+@include('market_items.list', ['items'=>$localItems])
 @endsection
