@@ -46,6 +46,11 @@
             resize: none !important;
         }
 
+        @media (min-width: 576px){
+            .modal-dialog {
+                max-width: 800px !important;
+            }
+        }
 
         .btn-mine {
             color: #fff;

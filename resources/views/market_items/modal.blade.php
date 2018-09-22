@@ -7,11 +7,11 @@
     <div class="row justify-content-center pt-3">
         <div class="col">
             <div class="row justify-content-center">
-                <div class="col-sm-6">
+                <div class="col-md-6">
                     <img class="img-fluid d-block mx-auto" src="{{asset('market_images/'.$item->uuid.'.png')}}">
                 </div>
 
-                <div class="col-sm-6">
+                <div class="col-md-6">
                     <div class="row">
                         <div class="col">
                             <h4>{{$item->title}}</h4>
