@@ -193,7 +193,7 @@
         });
     }
 
-    function fileLoaded() {
+    function fileLoaded(input) {
         // Read in file
         var file = event.target.files[0];
 
@@ -235,8 +235,14 @@
                     resetOrientation(dataUrl, marketItemImageOrientation, function(correctedImage){
                         marketItemImage = correctedImage;
                         // REFACTOR
-                        $("#form_createMarketItem .img-fluid")[0].src = marketItemImage;
-                        $("#form_editMarketItem .img-fluid")[0].src = marketItemImage;
+                        switch(input.dataset.viewtype){
+                            case "create":
+                                $("#form_createMarketItem .img-fluid")[0].src = marketItemImage;
+                                break;
+                            case "edit":
+                                $("#form_editMarketItem .img-fluid")[0].src = marketItemImage;
+                                break;
+                        }
                     });
                 };
                 image.src = readerEvent.target.result;

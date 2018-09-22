@@ -10,8 +10,8 @@
 <div class="modal fade" id="filters" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-body">
-                <div class="row d-flex justify-content-end pr-3">
+            <div class="modal-body py-2">
+                <div class="row d-flex justify-content-end pb-2 pr-3">
                     <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -48,7 +48,7 @@
                                     </div>
                                 </div>
 
-                                <div class="row p-2">
+                                <div class="row justify-content-end p-2">
                                     <button type="submit" class="btn btn-primary">Apply</button>
                                 </div>
                         </form>

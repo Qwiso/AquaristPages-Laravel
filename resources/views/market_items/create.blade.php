@@ -7,7 +7,7 @@
 <div class="modal fade" id="create-item" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-body">
+            <div class="modal-body py-2">
                 <div class="row d-flex justify-content-end pr-3">
                     <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
@@ -60,19 +60,17 @@
 
                             <div class="row pb-3">
                                 <div class="col">
-                                    <div class="input-group">
+                                    <div class="input-group d-flex flex-nowrap">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="far fa-file-image" aria-hidden="true"></i></span>
                                         </div>
-                                        {{--<input type="url" class="form-control" name="media_url" placeholder="imgur url...">--}}
-                                        {{--<input type="url" class="form-control" name="media_url" placeholder="imgur url..." onchange="imgurLinkChanged(this)">--}}
-                                        <input type="file" accept="image/*" name="media_url" onchange="fileLoaded()" required>
+                                        <input data-viewtype="create" type="file" accept="image/*" name="media_url" onchange="fileLoaded(this)" required>
                                     </div>
                                     <img class="img-fluid d-block mx-auto pt-3">
                                 </div>
                             </div>
 
-                            <div class="row pb-3">
+                            <div class="row">
                                 <div class="col d-flex justify-content-end">
                                     <button type="submit" class="btn btn-primary">Create</button>
                                 </div>
