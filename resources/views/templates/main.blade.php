@@ -130,9 +130,20 @@
                 case "form_createComment":
                     createCommentSubmit(form);
                     break;
+                case "form_marketplaceFilter":
+                    marketplaceFilter(form);
+                    break;
             }
         });
     });
+
+    function marketplaceFilter(form) {
+        console.log(form);
+        let category = form.querySelector("select[name='category']").value;
+        let radius = form.querySelector("select[name='radius']").value;
+        let url = "{{url('marketplace')}}?category="+category+"&radius="+radius;
+        window.location.href = url;
+    }
 
     function deleteComment(commentId){
         if(!confirm('Delete your comment?!')) return;
