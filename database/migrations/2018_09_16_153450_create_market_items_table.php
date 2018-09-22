@@ -21,7 +21,7 @@ class CreateMarketItemsTable extends Migration
             $table->string('category');
             $table->string('title');
             $table->string('description', 2500)->nullable();
-            $table->integer('amount')->nullable();
+            $table->integer('amount')->nullable()->default(0);
             $table->decimal('price');
             $table->timestamps();
         });

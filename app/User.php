@@ -47,7 +47,6 @@ class User extends Authenticatable
 
     public function zipcode() { return $this->belongsTo(Zipcode::class); }
     public function items() { return $this->hasMany(MarketItem::class); }
-    public function posts() { return $this->hasMany(Post::class); }
     public function comments() { return $this->hasMany(Comment::class); }
 
     function getZipcodeIdsByRadius($radius = 50)
