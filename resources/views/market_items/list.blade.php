@@ -15,9 +15,9 @@
 @section('post-script')
 <script>
     function loadMarketItem(uuid){
+        $("#market-item").modal('show');
         $.get("{{url('marketplace/item/modal')}}/"+uuid, function(res){
             $("#market-item-content").html(res);
-            $("#market-item").modal('show');
         });
     }
 </script>
