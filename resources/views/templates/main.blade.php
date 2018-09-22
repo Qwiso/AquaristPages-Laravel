@@ -27,7 +27,7 @@
     <meta name="og:type" content="website">
 
     @yield('html-head')
-    <link rel="shortcut icon" href="/favicon.ico"/>
+    <link rel="shortcut icon" href="{{asset('favicon.ico')}}"/>
     <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link rel="stylesheet=" href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
