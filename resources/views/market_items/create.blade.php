@@ -48,7 +48,7 @@
 
                             <div class="row pb-3">
                                 <div class="col">
-                                    <textarea rows="3" class="form-control" name="description" placeholder="describe your item..."></textarea>
+                                    <textarea rows="3" class="form-control" name="description" placeholder="Describe your item... (optional)"></textarea>
                                 </div>
                             </div>
 
