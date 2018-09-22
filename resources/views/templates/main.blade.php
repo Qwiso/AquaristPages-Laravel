@@ -313,8 +313,8 @@
         marketItem.title = form.querySelector('input[name="title"]').value;
         marketItem.category = form.querySelector('select[name="category"]').value;
         marketItem.description = form.querySelector('textarea[name="description"]').value;
-        let amount = form.querySelector('input[name="amount"]').value;
-        marketItem.amount = amount == '' ? 0 : amount;
+//        let amount = form.querySelector('input[name="amount"]').value;
+//        marketItem.amount = amount == '' ? 0 : amount;
         marketItem.price = form.querySelector('input[name="price"]').value;
 
         let data = {};
@@ -336,8 +336,8 @@
         marketItem.title = form.querySelector('input[name="title"]').value;
         marketItem.category = form.querySelector('select[name="category"]').value;
         marketItem.description = form.querySelector('textarea[name="description"]').value;
-        let amount = form.querySelector('input[name="amount"]').value;
-        marketItem.amount = amount == '' ? 0 : amount;
+//        let amount = form.querySelector('input[name="amount"]').value;
+//        marketItem.amount = amount == '' ? 0 : amount;
         marketItem.price = form.querySelector('input[name="price"]').value;
 
         let data = {};
