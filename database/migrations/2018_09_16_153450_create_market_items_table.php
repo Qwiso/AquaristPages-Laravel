@@ -17,7 +17,7 @@ class CreateMarketItemsTable extends Migration
             $table->increments('id');
             $table->string('uuid');
             $table->integer('user_id');
-            $table->integer('zipcode_id')->nullable();
+            $table->integer('zipcode_id');
             $table->string('category');
             $table->string('title');
             $table->string('description', 2500)->nullable();
