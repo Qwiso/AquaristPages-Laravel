@@ -15,8 +15,8 @@
                 <small><b>Contact Me</b> - click to reveal url or email</small>
             </div>
             <div class="w-100 d-flex justify-content-center pt-2">
-                <div class="btn btn-facebook mx-3" onclick="togglePopover(this)" data-for="facebook" data-placement="bottom" data-content="https://www.facebook.com/zjones5487"><i class="fab fa-facebook"></i> Facebook</div>
-                <div class="btn btn-secondary mx-3" onclick="togglePopover(this)" data-for="email" data-trigger="manual" data-placement="bottom" data-content="qwisodev@gmail.com"><i class="fa fa-envelope"></i> @gmail.com</div>
+                <div class="btn btn-facebook mx-3" data-for="facebook" data-toggle="popover" data-html="true" data-trigger="click" data-placement="bottom" data-content="<a href='https://www.facebook.com/zjones5487'>https://www.facebook.com/zjones5487</a>"><i class="fab fa-facebook"></i> Facebook</div>
+                <div class="btn btn-secondary mx-3" data-for="email" data-toggle="popover" data-html="true" data-trigger="click" data-placement="bottom" data-content="qwisodev@gmail.com"><i class="fa fa-envelope"></i> @gmail.com</div>
             </div>
         </div>
     </div>
@@ -24,11 +24,19 @@
 
 @section('post-script')
 <script>
-    $('div[data-content]').on('click', function(){
-        $('div[data-content]').not(this).popover('hide');
+    $('div[data-for]').on('click', function(){
+
+        $(this).popover('show');
+
+        $('div[data-for]').not(this).popover('hide');
+//        let dataFor = this.dataset.for;
+//
+//        $(this).popover({
+//            html: true,
+//            content: function(){
+//                return document.getElementById("popover-content-" + dataFor);
+//            }
+//        }).popover('show');
     });
-    function togglePopover(target){
-        $(target).popover('toggle');
-    }
 </script>
 @append
