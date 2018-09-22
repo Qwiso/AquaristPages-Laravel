@@ -3,7 +3,7 @@
         <div class="input-group-prepend">
             <span class="input-group-text"><i class="fas fa-map-marker" aria-hidden="true"></i></span>
         </div>
-        <input id="q" class="form-control" name="zip" value="{{$user->zipcode_id ? $user->zipcode->zipcode : ''}}">
+        <input id="q" class="form-control" name="autocomplete_zipcode" data-zipid="{{$user->zipcode->id}}" data-value="{{$user->zipcode->zipcode}}" placeholder="{{$user->zipcode->city.', '.$user->zipcode->state_abbr}}">
     </div>
 </form>
 @section('post-script')
@@ -18,7 +18,9 @@
         },
         minLength: 3,
         select: function(event, ui){
-            $("#q").val(ui.item.value);
+            event.target.dataset.zipid = ui.item.id;
+            event.target.dataset.value = ui.item.value;
+            event.target.placeholder = ui.item.text;
         }
     });
 </script>

@@ -329,11 +329,11 @@
 //        let amount = form.querySelector('input[name="amount"]').value;
 //        marketItem.amount = amount == '' ? 0 : amount;
         marketItem.price = form.querySelector('input[name="price"]').value;
-
         let data = {};
         data._token = "{{csrf_token()}}";
         data.item = JSON.stringify(marketItem);
         data.media_url = marketItemImage;
+        data.zipcode_id = form.querySelector('input[name="autocomplete_zipcode"]').dataset.zipid;
 
         $.post("{{url('marketplace')}}", data, function(res){
             if (res.success)

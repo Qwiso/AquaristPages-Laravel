@@ -15,7 +15,7 @@ class CreateZipcodesTable extends Migration
     {
         Schema::create('zipcodes', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('zipcode');
+            $table->string('zipcode');
             $table->string('city');
             $table->string('state');
             $table->string('state_abbr');

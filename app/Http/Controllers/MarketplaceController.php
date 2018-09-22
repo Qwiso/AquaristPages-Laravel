@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\MarketItem;
+use App\Zipcode;
 use Illuminate\Database\Eloquent\Builder;
 
 class MarketplaceController extends Controller
@@ -91,7 +92,8 @@ class MarketplaceController extends Controller
 
     public function create() {
         $item = new MarketItem(json_decode(request('item'), true));
-        $item->zipcode_id = auth()->user()->zipcode->id;
+        if (!$zipcode = Zipcode::find(request('zipcode_id'))) return response()->json(['failed'=>true,'message'=>'not a valid zipcode_id']);
+        $item->zipcode_id = request('zipcode_id');
         $item->uuid = md5($item->toJson());
 
         $data = request('media_url');
