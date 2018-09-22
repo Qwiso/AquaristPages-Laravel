@@ -28,7 +28,7 @@
 
                             <div class="row pb-3">
                                 <div class="col">
-                                    <input type="text" class="form-control" name="title" value="{{$item->title}}" placeholder="set the item name..." required>
+                                    <input type="text" class="form-control" name="title" value="{{$item->title}}" placeholder="What is the item?" required>
                                 </div>
                             </div>
 
@@ -45,7 +45,7 @@
 
                             <div class="row pb-3">
                                 <div class="col">
-                                    <textarea rows="3" class="form-control" name="description" placeholder="describe your item...">{{$item->description}}</textarea>
+                                    <textarea rows="3" class="form-control" name="description" placeholder="Describe your item... (optional)">{{$item->description}}</textarea>
                                 </div>
                             </div>
 
