@@ -1,5 +1,8 @@
 <div class="modal-body">
     <div class="row d-flex justify-content-end pr-3">
+        <div class="col d-md-none">
+            <h4 class="modal-title">{{$item->title}}</h4>
+        </div>
         <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
         </button>
