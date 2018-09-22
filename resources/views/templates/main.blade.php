@@ -136,6 +136,7 @@
     function marketplaceFilter(form) {
         let category = form.querySelector("select[name='category']").value;
         let radius = form.querySelector("select[name='radius']").value;
+        let zipcode = form.querySelector("input[name='autocomplete_zipcode']").dataset.value;
         let url = "{{url('marketplace')}}?";
 
         if (category)
@@ -143,6 +144,9 @@
 
         if (radius)
             url += "&radius=" + radius;
+
+        if(zipcode)
+            url += "&zipcode=" + zipcode;
 
         window.location.href = url;
     }

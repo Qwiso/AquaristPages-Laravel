@@ -10,22 +10,30 @@ class MarketplaceController extends Controller
 {
     public function index() {
         $user = auth()->user();
+        if(request('zipcode')){
+            $zipcode = Zipcode::where('zipcode', request('zipcode'))->firstOrFail();
+        } else {
+            $zipcode = $user->zipcode;
+        }
 
         switch(request('radius')){
+            case 10:
+                $nearbyZipcodes = $user->getZipcodeIdsByRadiusFrom(10, $zipcode);
+                break;
+            case 25:
+                $nearbyZipcodes = $user->getZipcodeIdsByRadiusFrom(25, $zipcode);
+                break;
             case 50:
-                $nearbyZipcodes = $user->getZipcodeIdsByRadius(50);
+                $nearbyZipcodes = $user->getZipcodeIdsByRadiusFrom(50, $zipcode);
                 break;
-            case 100:
-                $nearbyZipcodes = $user->getZipcodeIdsByRadius(100);
-                break;
-            case 500:
-                $nearbyZipcodes = $user->getZipcodeIdsByRadius(500);
+            case 50:
+                $nearbyZipcodes = $user->getZipcodeIdsByRadiusFrom(100, $zipcode);
                 break;
             case "state":
                 $nearbyZipcodes = $user->getZipcodeIdsByState($user->zipcode->state);
                 break;
             default:
-                $nearbyZipcodes = $user->getZipcodeIdsByRadius(50);
+                $nearbyZipcodes = $user->getZipcodeIdsByRadiusFrom(25, $zipcode);
                 break;
         }
 
@@ -49,7 +57,7 @@ class MarketplaceController extends Controller
         else
             $localItems = MarketItem::whereNotNull('amount')->whereIn('zipcode_id', $nearbyZipcodes)->where('category', $cat)->orderBY('created_at', 'desc')->with('zipcode')->get();
 
-        return view('pages.marketplace', compact('localItems'));
+        return view('pages.marketplace', compact('user', 'zipcode', 'localItems'));
     }
 
 

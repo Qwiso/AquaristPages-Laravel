@@ -36,6 +36,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $uuid
  * @property-read \App\Zipcode|null $zipcode
  * @method static \Illuminate\Database\Eloquent\Builder|\App\MarketItem whereUuid($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Comment[] $comments
  */
 class MarketItem extends Model
 {

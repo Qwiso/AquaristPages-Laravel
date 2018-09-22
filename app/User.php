@@ -38,6 +38,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property-read \App\Zipcode|null $zipcode
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereZipcodeId($value)
  * @property-read \App\Zipcode $location
+ * @property string $uuid
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereUuid($value)
  */
 class User extends Authenticatable
 {
@@ -53,6 +55,14 @@ class User extends Authenticatable
     {
         $lat = auth()->user()->zipcode->lat;
         $lon = auth()->user()->zipcode->lon;
+        $sql = '(3958*3.1415926*sqrt((lat-'.$lat.')*(lat-'.$lat.') + cos(lat/57.29578)*cos('.$lat.'/57.29578)*(lon-'.$lon.')*(lon-'.$lon.'))/180) <= '.$radius.';';
+        return DB::table('zipcodes')->whereRaw($sql)->pluck('id');
+    }
+
+    function getZipcodeIdsByRadiusFrom($radius = 50, Zipcode $from)
+    {
+        $lat = $from->lat;
+        $lon = $from->lon;
         $sql = '(3958*3.1415926*sqrt((lat-'.$lat.')*(lat-'.$lat.') + cos(lat/57.29578)*cos('.$lat.'/57.29578)*(lon-'.$lon.')*(lon-'.$lon.'))/180) <= '.$radius.';';
         return DB::table('zipcodes')->whereRaw($sql)->pluck('id');
     }

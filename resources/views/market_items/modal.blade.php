@@ -17,6 +17,9 @@
                 <div class="col-md-6">
                     <div class="row">
                         <div class="col">
+                            <p>
+                                <small>{{ucwords($item->category)}}</small>
+                            </p>
                             <h4 class="m-0">${{$item->price}}</h4>
 
                             <p class="m-0 py-3">
