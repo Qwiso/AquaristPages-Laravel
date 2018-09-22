@@ -10,7 +10,7 @@
     <div class="row justify-content-center pt-3">
         <div class="col">
             <div class="row justify-content-center">
-                <div class="col-md-6">
+                <div class="col-md-6 pb-3">
                     <img class="img-fluid d-block mx-auto" src="{{asset('market_images/'.$item->uuid.'.png')}}">
                 </div>
 
