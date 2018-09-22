@@ -20,9 +20,15 @@
             </div>
         </div>
     </div>
-    <script>
-        function togglePopover(target){
-            $(target).popover('toggle');
-        }
-    </script>
 @endsection
+
+@section('post-script')
+<script>
+    $('div[data-content]').on('click', function(){
+        $('div[data-content]').not(this).popover('hide');
+    });
+    function togglePopover(target){
+        $(target).popover('toggle');
+    }
+</script>
+@append
