@@ -138,10 +138,16 @@
     });
 
     function marketplaceFilter(form) {
-        console.log(form);
         let category = form.querySelector("select[name='category']").value;
         let radius = form.querySelector("select[name='radius']").value;
-        let url = "{{url('marketplace')}}?category="+category+"&radius="+radius;
+        let url = "{{url('marketplace')}}?";
+
+        if (category)
+            url += "&category=" + category;
+
+        if (radius)
+            url += "&radius=" + radius;
+
         window.location.href = url;
     }
 
