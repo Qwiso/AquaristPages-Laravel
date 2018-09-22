@@ -12,6 +12,7 @@
     </div>
 </div>
 
+@section('post-script')
 <script>
     function loadMarketItem(uuid){
         $.get("{{url('marketplace/item/modal')}}/"+uuid, function(res){
@@ -20,3 +21,4 @@
         });
     }
 </script>
+@append
