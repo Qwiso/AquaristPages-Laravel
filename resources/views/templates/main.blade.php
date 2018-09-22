@@ -109,6 +109,14 @@
     let albumid, isAlbum, marketItemImage, marketItemImageOrientation;
 
     $(function(){
+        let images = document.querySelectorAll('a img');
+        images.forEach(function(img){
+            if (img.width > img.height)
+                img.height = 250;
+            else
+                img.width = 250;
+        });
+
         document.addEventListener('submit', function(e){
             e.preventDefault();
             e.stopPropagation();
