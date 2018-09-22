@@ -20,7 +20,7 @@
                             <p>
                                 <small>{{ucwords($item->category)}}</small>
                             </p>
-                            <h4 class="m-0">${{$item->price}}</h4>
+                            <h4 class="m-0">${{$item->price == intval($item->price) ? intval($item->price) : $item->price}}</h4>
 
                             <p class="m-0 py-3">
                                 {{$item->description}}
