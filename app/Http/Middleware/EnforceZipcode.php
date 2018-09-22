@@ -15,6 +15,9 @@ class EnforceZipcode
      */
     public function handle($request, Closure $next)
     {
+        if (!auth()->check())
+            return redirect('/');
+
         if (auth()->user()->zipcode != null)
             return $next($request);
 

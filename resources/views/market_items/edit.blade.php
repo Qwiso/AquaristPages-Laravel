@@ -51,6 +51,12 @@
 
                             <div class="row pb-3">
                                 <div class="col">
+                                    @include('market_items.editzip', ['zipcode' => $item->zipcode])
+                                </div>
+                            </div>
+
+                            <div class="row pb-3">
+                                <div class="col">
                                     <div class="input-group d-flex flex-nowrap">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="far fa-file-image" aria-hidden="true"></i></span>

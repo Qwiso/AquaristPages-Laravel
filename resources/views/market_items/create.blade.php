@@ -54,7 +54,7 @@
 
                             <div class="row pb-3">
                                 <div class="col">
-                                    @include('market_items.setzip')
+                                    @include('market_items.setzip', ['zipcode' => $user->zipcode])
                                 </div>
                             </div>
 

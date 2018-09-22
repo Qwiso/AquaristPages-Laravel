@@ -367,6 +367,7 @@
         data._token = "{{csrf_token()}}";
         data.item = JSON.stringify(marketItem);
         data.media_url = marketItemImage;
+        data.zipcode_id = form.querySelector('input[name="autocomplete_zipcode"]').dataset.zipid;
 
         $.ajax({
             url: '{{url("marketplace")}}',

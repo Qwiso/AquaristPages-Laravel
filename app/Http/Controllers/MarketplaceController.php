@@ -80,7 +80,7 @@ class MarketplaceController extends Controller
 
 
     public function getEdit($id) {
-        $item = MarketItem::find($id);
+        $item = MarketItem::where('id', $id)->with('zipcode', 'user')->first();
         return view('market_items.edit', compact('item'))->render();
     }
 
@@ -135,6 +135,8 @@ class MarketplaceController extends Controller
         $updatedItem = json_decode(request('item'), true);
         $oldItem = MarketItem::where('uuid', $updatedItem['uuid'])->firstOrFail();
         if (auth()->id() != $oldItem->user_id) return response('stop that', 403);
+        if (!$zipcode = Zipcode::find(request('zipcode_id'))) return response()->json(['failed'=>true,'message'=>'not a valid zipcode_id']);
+        $updatedItem['zipcode_id'] = request('zipcode_id');
 
         $image = request('media_url');
         if ($image) {
