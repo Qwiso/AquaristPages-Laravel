@@ -1,4 +1,4 @@
-<div class="border bg-white p-3">
+<div class="border bg-white p-2">
     {{--<style scoped>--}}
         {{--/*div.editbox[contenteditable] { display: inline-block; }*/--}}
         {{--/*div.editbox[contenteditable] br { display: none; }*/--}}

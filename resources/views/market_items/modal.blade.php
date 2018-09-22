@@ -4,7 +4,7 @@
             <span aria-hidden="true">×</span>
         </button>
     </div>
-    <div class="row justify-content-center p-3">
+    <div class="row justify-content-center pt-3">
         <div class="col">
             <div class="row justify-content-center">
                 <div class="col-sm-6">

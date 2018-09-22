@@ -1,5 +1,5 @@
 <div class="modal fade" id="edit-item" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
                 <div class="row d-flex justify-content-end pr-3">
@@ -7,14 +7,10 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
+
                 <form id="form_editMarketItem">
-                    <div class="row bg-white shadow-sm">
+                    <div class="row bg-white">
                         <div class="col pt-3">
-                            <div class="row pb-3">
-                                <div class="col">
-                                    <input type="text" class="form-control" name="title" value="{{$item->title}}" placeholder="set the item name..." required>
-                                </div>
-                            </div>
 
                             <div class="row pb-3">
                                 <div class="col">
@@ -32,31 +28,24 @@
 
                             <div class="row pb-3">
                                 <div class="col">
-                                    <textarea rows="3" class="form-control" name="description" placeholder="describe your item..." required>{{$item->description}}</textarea>
+                                    <input type="text" class="form-control" name="title" value="{{$item->title}}" placeholder="set the item name..." required>
                                 </div>
                             </div>
 
                             <div class="row pb-3">
-                                <div class="col d-flex justify-content-around">
-                                    <div class="col">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-hashtag" aria-hidden="true"></i></span>
-                                            </div>
-                                            <input type="number" class="form-control" min="0" step="1" name="amount" value="{{$item->amount}}" placeholder="0">
+                                <div class="col">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-dollar-sign" aria-hidden="true"></i></span>
                                         </div>
-                                        <small>how many</small>
+                                        <input type="number" class="form-control" min="0.00" step="0.25" name="price" value={{$item->price}} placeholder="0.00" required>
                                     </div>
+                                </div>
+                            </div>
 
-                                    <div class="col">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-dollar-sign" aria-hidden="true"></i></span>
-                                            </div>
-                                            <input type="number" class="form-control" min="0.00" step="0.25" name="price" value={{$item->price}} placeholder="0.00" required>
-                                        </div>
-                                        <small>price per unit</small>
-                                    </div>
+                            <div class="row pb-3">
+                                <div class="col">
+                                    <textarea rows="3" class="form-control" name="description" placeholder="describe your item...">{{$item->description}}</textarea>
                                 </div>
                             </div>
 
