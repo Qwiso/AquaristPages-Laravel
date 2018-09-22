@@ -133,6 +133,23 @@
         });
     });
 
+    function deleteComment(commentId){
+        if(!confirm('Delete your comment?!')) return;
+
+        let data = {};
+        data.comment_id = commentId;
+        data._token = "{{csrf_token()}}";
+
+        $.ajax({
+            url: '{{url("comments")}}',
+            type: 'DELETE',
+            data: data,
+            success: function() {
+                window.location.reload();
+            }
+        });
+    }
+
     function editItem(itemId){
         $.get("{{url('marketplace/item/edit')}}/" + itemId, function(res){
             $("#edit-item").remove();
@@ -153,7 +170,6 @@
             type: 'DELETE',
             data: data,
             success: function() {
-                $("#edit-item").modal('hide');
                 window.location.reload();
             }
         });

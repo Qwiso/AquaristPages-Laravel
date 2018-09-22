@@ -113,4 +113,5 @@ Route::group(['prefix' => 'marketplace', 'middleware' => 'zipcode'], function(){
 
 Route::group(['prefix' => 'comments'], function() {
     Route::post('/', 'CommentController@create');
+    Route::delete('/', 'CommentController@delete');
 });
