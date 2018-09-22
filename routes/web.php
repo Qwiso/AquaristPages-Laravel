@@ -2,7 +2,7 @@
 
 Route::get('/', function () {
     if (!auth()->check())
-        return redirect('login');
+        return view('pages.login');
 
     $user = auth()->user();
 
