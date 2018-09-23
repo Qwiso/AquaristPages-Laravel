@@ -105,9 +105,8 @@
 <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="//stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+<script src="{{asset('js/image-processor.js')}}"></script>
 <script>
-    let albumid, isAlbum, marketItemImage, marketItemImageOrientation;
-
     $(function(){
         let images = document.querySelectorAll('a img');
         images.forEach(function(img){
@@ -115,6 +114,10 @@
                 img.height = 250;
             else
                 img.width = 250;
+        });
+
+        document.addEventListener('image-ready', function(e){
+            e.detail.input.form.querySelector('img').src = e.detail.image;
         });
 
         document.addEventListener('submit', function(e){
@@ -141,22 +144,12 @@
         });
     });
 
-    function marketplaceFilter(form) {
-        let category = form.querySelector("select[name='category']").value;
-        let radius = form.querySelector("select[name='radius']").value;
-        let zipcode = form.querySelector("input[name='autocomplete_zipcode']").dataset.value;
-        let url = "{{url('marketplace')}}?";
+    function fileLoaded(input) {
+        var file = event.target.files[0];
 
-        if (category)
-            url += "&category=" + category;
-
-        if (radius)
-            url += "&radius=" + radius;
-
-        if(zipcode)
-            url += "&zipcode=" + zipcode;
-
-        window.location.href = url;
+        if (file.type.match(/image.*/)) {
+            processImageFile(file, input);
+        }
     }
 
     function deleteComment(commentId){
@@ -201,142 +194,22 @@
         });
     }
 
-    function fileLoaded(input) {
-        // Read in file
-        var file = event.target.files[0];
+    function marketplaceFilter(form) {
+        let category = form.querySelector("select[name='category']").value;
+        let radius = form.querySelector("select[name='radius']").value;
+        let zipcode = form.querySelector("input[name='autocomplete_zipcode']").dataset.value;
+        let url = "{{url('marketplace')}}?";
 
-        // Ensure it's an image
-        if (file.type.match(/image.*/)) {
+        if (category)
+            url += "&category=" + category;
 
-            // Get image orientation
-            getImageOrientation(file, function(orientation) {
-                marketItemImageOrientation = orientation;
-            });
+        if (radius)
+            url += "&radius=" + radius;
 
-            // Resize and reorient the image
-            var reader = new FileReader();
-            reader.onload = function (readerEvent) {
-                var image = new Image();
-                image.onload = function (imageEvent) {
+        if(zipcode)
+            url += "&zipcode=" + zipcode;
 
-                    // Resize the image
-                    var canvas = document.createElement('canvas'),
-                            max_size = 720,
-                            width = image.width,
-                            height = image.height;
-                    if (width > height) {
-                        if (width > max_size) {
-                            height *= max_size / width;
-                            width = max_size;
-                        }
-                    } else {
-                        if (height > max_size) {
-                            width *= max_size / height;
-                            height = max_size;
-                        }
-                    }
-                    canvas.width = width;
-                    canvas.height = height;
-                    canvas.getContext('2d').drawImage(image, 0, 0, width, height);
-
-                    var dataUrl = canvas.toDataURL('image/png');
-                    resetOrientation(dataUrl, marketItemImageOrientation, function(correctedImage){
-                        marketItemImage = correctedImage;
-                        // REFACTOR
-                        switch(input.dataset.viewtype){
-                            case "create":
-                                $("#form_createMarketItem .img-fluid")[0].src = marketItemImage;
-                                break;
-                            case "edit":
-                                $("#form_editMarketItem .img-fluid")[0].src = marketItemImage;
-                                break;
-                        }
-                    });
-                };
-                image.src = readerEvent.target.result;
-            };
-
-            reader.readAsDataURL(file);
-        } else {
-            // not an image file
-        }
-    }
-
-    function getImageOrientation(file, callback) {
-        var reader = new FileReader();
-
-        reader.onload = function(event) {
-            var view = new DataView(event.target.result);
-
-            if (view.getUint16(0, false) != 0xFFD8) return callback(-2);
-
-            var length = view.byteLength,
-                    offset = 2;
-
-            while (offset < length) {
-                var marker = view.getUint16(offset, false);
-                offset += 2;
-
-                if (marker == 0xFFE1) {
-                    if (view.getUint32(offset += 2, false) != 0x45786966) {
-                        return callback(-1);
-                    }
-                    var little = view.getUint16(offset += 6, false) == 0x4949;
-                    offset += view.getUint32(offset + 4, little);
-                    var tags = view.getUint16(offset, little);
-                    offset += 2;
-
-                    for (var i = 0; i < tags; i++)
-                        if (view.getUint16(offset + (i * 12), little) == 0x0112)
-                            return callback(view.getUint16(offset + (i * 12) + 8, little));
-                }
-                else if ((marker & 0xFF00) != 0xFF00) break;
-                else offset += view.getUint16(offset, false);
-            }
-            return callback(-1);
-        };
-
-        reader.readAsArrayBuffer(file.slice(0, 64 * 1024));
-    }
-
-    function resetOrientation(srcBase64, srcOrientation, callback) {
-        var img = new Image();
-
-        img.onload = function() {
-            var width = img.width,
-                    height = img.height,
-                    canvas = document.createElement('canvas'),
-                    ctx = canvas.getContext("2d");
-
-            // set proper canvas dimensions before transform & export
-            if (4 < srcOrientation && srcOrientation < 9) {
-                canvas.width = height;
-                canvas.height = width;
-            } else {
-                canvas.width = width;
-                canvas.height = height;
-            }
-
-            // transform context before drawing image
-            switch (srcOrientation) {
-                case 2: ctx.transform(-1, 0, 0, 1, width, 0); break;
-                case 3: ctx.transform(-1, 0, 0, -1, width, height ); break;
-                case 4: ctx.transform(1, 0, 0, -1, 0, height ); break;
-                case 5: ctx.transform(0, 1, 1, 0, 0, 0); break;
-                case 6: ctx.transform(0, 1, -1, 0, height , 0); break;
-                case 7: ctx.transform(0, -1, -1, 0, height , width); break;
-                case 8: ctx.transform(0, -1, 1, 0, 0, width); break;
-                default: break;
-            }
-
-            // draw image
-            ctx.drawImage(img, 0, 0, width, height);
-
-            // export base64
-            callback(canvas.toDataURL('image/png'));
-        };
-
-        img.src = srcBase64;
+        window.location.href = url;
     }
 
     function createMarketItemSubmit(form) {

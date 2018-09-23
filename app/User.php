@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Cmgmyr\Messenger\Traits\Messagable;
 use DB;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -43,7 +44,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, Messagable;
 
     protected $guarded = ['remember_token', 'created_at', 'updated_at'];
 
