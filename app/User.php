@@ -44,7 +44,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class User extends Authenticatable
 {
-    use Notifiable, Messagable;
+    use Notifiable;
 
     protected $guarded = ['remember_token', 'created_at', 'updated_at'];
 

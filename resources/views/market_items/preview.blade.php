@@ -8,7 +8,6 @@
         <div class="position-absolute badge badge-secondary p-2 align-middle">${{$item->price == intval($item->price) ? intval($item->price) : $item->price}}</div>
     </div>
     <div style="overflow: hidden; display: flex; align-items: center; justify-content: center; min-width: 250px; max-width: 250px; min-height: 250px; max-height: 250px;">
-        {{--<a href="{{url('marketplace/item')}}/{{$item->uuid}}"><img src="{{asset('market_images/'.$item->uuid.'.png')}}" width="245px"></a>--}}
         <a style="cursor: pointer;" onclick="loadMarketItem('{{$item->uuid}}')"><img src="{{asset('market_images/'.$item->uuid.'.png')}}"></a>
     </div>
     <div class="row pb-2">

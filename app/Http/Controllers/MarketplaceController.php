@@ -139,7 +139,7 @@ class MarketplaceController extends Controller
         $updatedItem['zipcode_id'] = request('zipcode_id');
 
         $image = request('media_url');
-        if ($image) {
+        if (str_contains($image, 'data:image')) {
             list($type, $image) = explode(';', $image);
             list(, $image)      = explode(',', $image);
             $image = base64_decode($image);

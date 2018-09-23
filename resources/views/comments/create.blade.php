@@ -16,5 +16,3 @@
         </div>
     </form>
 </div>
-<script>
-</script>

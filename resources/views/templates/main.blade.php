@@ -4,6 +4,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <meta http-equiv="content-type" content="text/html" charset="utf-8">
+    <meta name="app:csrf" content="{{csrf_token()}}">
 
     <!-- COMMON TAGS -->
     <meta charset="utf-8">
@@ -50,6 +51,10 @@
             .modal-dialog {
                 max-width: 800px !important;
             }
+        }
+
+        .fv-modal-stack {
+            overflow-y: auto !important;
         }
 
         .btn-mine {
@@ -116,6 +121,30 @@
                 img.width = 250;
         });
 
+        $('.modal').on('hidden.bs.modal', function(event) {
+            $(this).removeClass( 'fv-modal-stack' );
+            $('body').data( 'fv_open_modals', $('body').data( 'fv_open_modals' ) - 1 );
+        });
+
+        $('.modal').on('shown.bs.modal', function (event) {
+            // keep track of the number of open modals
+            if ( typeof( $('body').data( 'fv_open_modals' ) ) == 'undefined' ) {
+                $('body').data( 'fv_open_modals', 0 );
+            }
+
+            // if the z-index of this modal has been set, ignore.
+            if ($(this).hasClass('fv-modal-stack')) {
+                return;
+            }
+
+            $(this).addClass('fv-modal-stack');
+            $('body').data('fv_open_modals', $('body').data('fv_open_modals' ) + 1 );
+            $(this).css('z-index', 1040 + (10 * $('body').data('fv_open_modals' )));
+            $('.modal-backdrop').not('.fv-modal-stack').css('z-index', 1039 + (10 * $('body').data('fv_open_modals')));
+            $('.modal-backdrop').not('fv-modal-stack').addClass('fv-modal-stack');
+
+        });
+
         document.addEventListener('image-ready', function(e){
             e.detail.input.form.querySelector('img').src = e.detail.image;
         });
@@ -128,6 +157,9 @@
             let id = form.id;
 
             switch (id) {
+                case "form_createMessage":
+                    createMessageSubmit(form);
+                    break;
                 case "form_createMarketItem":
                     createMarketItemSubmit(form);
                     break;
@@ -157,7 +189,7 @@
 
         let data = {};
         data.comment_id = commentId;
-        data._token = "{{csrf_token()}}";
+        data._token = document.head.querySelector('[name="app:csrf"]').content;
 
         $.ajax({
             url: '{{url("comments")}}',
@@ -182,7 +214,7 @@
 
         let data = {};
         data.item_id = itemId;
-        data._token = "{{csrf_token()}}";
+        data._token = document.head.querySelector('[name="app:csrf"]').content;
 
         $.ajax({
             url: '{{url("marketplace")}}',
@@ -198,14 +230,12 @@
         let category = form.querySelector("select[name='category']").value;
         let radius = form.querySelector("select[name='radius']").value;
         let zipcode = form.querySelector("input[name='autocomplete_zipcode']").dataset.value;
-        let url = "{{url('marketplace')}}?";
 
+        let url = "{{url('marketplace')}}?";
         if (category)
             url += "&category=" + category;
-
         if (radius)
             url += "&radius=" + radius;
-
         if(zipcode)
             url += "&zipcode=" + zipcode;
 
@@ -221,9 +251,9 @@
 //        marketItem.amount = amount == '' ? 0 : amount;
         marketItem.price = form.querySelector('input[name="price"]').value;
         let data = {};
-        data._token = "{{csrf_token()}}";
+        data._token = document.head.querySelector('[name="app:csrf"]').content;
         data.item = JSON.stringify(marketItem);
-        data.media_url = marketItemImage;
+        data.media_url = form.querySelector('img').src;
         data.zipcode_id = form.querySelector('input[name="autocomplete_zipcode"]').dataset.zipid;
 
         $.post("{{url('marketplace')}}", data, function(res){
@@ -245,9 +275,9 @@
         marketItem.price = form.querySelector('input[name="price"]').value;
 
         let data = {};
-        data._token = "{{csrf_token()}}";
+        data._token = document.head.querySelector('[name="app:csrf"]').content;
         data.item = JSON.stringify(marketItem);
-        data.media_url = marketItemImage;
+        data.media_url = form.querySelector('img').src;
         data.zipcode_id = form.querySelector('input[name="autocomplete_zipcode"]').dataset.zipid;
 
         $.ajax({
@@ -286,7 +316,7 @@
         }
 
         let data = {};
-        data._token = "{{csrf_token()}}";
+        data._token = document.head.querySelector('[name="app:csrf"]').content;
         data.comment = JSON.stringify(comment);
 
         $.post("{{url('comments')}}", data, function(res){
@@ -295,6 +325,26 @@
             else
                 console.log(res);
         });
+    }
+
+    function showMessages(){
+
+    }
+
+
+    function createMessageSubmit(form){
+        console.log(form);
+        let input = form.querySelector('textarea');
+
+        let message = {};
+        message.uuid = input.dataset.uuid;
+        message.text = input.value;
+
+        let data = {};
+        data._token = document.head.querySelector('[name="app:csrf"]').content;
+        data.message = JSON.stringify(message);
+
+        console.log(data);
     }
 </script>
 @yield('post-script')
