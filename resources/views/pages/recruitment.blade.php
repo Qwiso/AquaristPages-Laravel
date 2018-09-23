@@ -22,6 +22,9 @@
                     <div class="btn btn-secondary mx-3" data-for="email" data-toggle="popover" data-html="true" data-trigger="click" data-placement="bottom" data-content="qwisodev@gmail.com"><i class="fa fa-envelope"></i> @gmail.com</div>
                 </div>
             </div>
+            <div style="padding-top: 0.5rem; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                <img class="img img-fluid" src="{{asset('preview.png')}}">
+            </div>
         </div>
     </div>
 @endsection

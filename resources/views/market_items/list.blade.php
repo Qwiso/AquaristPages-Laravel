@@ -7,7 +7,7 @@
 </div>
 
 <div class="modal fade" id="market-item" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-lg" role="document">s
         <div class="modal-content" id="market-item-content"></div>
     </div>
 </div>
