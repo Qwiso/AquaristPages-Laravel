@@ -52,6 +52,16 @@ class User extends Authenticatable
     public function items() { return $this->hasMany(MarketItem::class); }
     public function comments() { return $this->hasMany(Comment::class); }
 
+    public function messages() { return $this->hasMany(Message::class); }
+    public function conversations() { return $this->hasMany(Conversation::class, 'user_id_sender'); }
+    public function participations() { return $this->hasMany(Participant::class); }
+
+
+    public function sendMessage(User $recipient, string $message)
+    {
+
+    }
+
     function getZipcodeIdsByRadius($radius = 50)
     {
         $lat = auth()->user()->zipcode->lat;

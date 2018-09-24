@@ -1,9 +1,8 @@
 <?php
 
-use Cmgmyr\Messenger\Models\Models;
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateMessagesTable extends Migration
 {
@@ -14,11 +13,11 @@ class CreateMessagesTable extends Migration
      */
     public function up()
     {
-        Schema::create(Models::table('messages'), function (Blueprint $table) {
+        Schema::create('messages', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('thread_id')->unsigned();
             $table->integer('user_id')->unsigned();
-            $table->text('body');
+            $table->integer('conversation_id')->unsigned();
+            $table->text('text');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateMessagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(Models::table('messages'));
+        Schema::dropIfExists('messages');
     }
 }

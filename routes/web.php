@@ -1,6 +1,13 @@
 <?php
 
 Route::get('/', function () {
+    $user = auth()->user();
+    $user2 = \App\User::find(2);
+
+    $user->sendMessage($user2, "");
+
+    return $convo;
+
     if (!auth()->check())
         return view('pages.login');
 
@@ -111,6 +118,11 @@ Route::group(['prefix' => 'marketplace', 'middleware' => 'zipcode'], function(){
     Route::post('/', 'MarketplaceController@create');
     Route::put('/', 'MarketplaceController@update');
     Route::delete('/', 'MarketplaceController@delete');
+});
+
+Route::group(['prefix' => 'messages'], function(){
+    Route::get('/', 'MessageController@list');
+    Route::post('/', 'MessageController@create');
 });
 
 Route::group(['prefix' => 'comments'], function() {
