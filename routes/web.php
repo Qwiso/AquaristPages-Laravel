@@ -1,13 +1,6 @@
 <?php
 
 Route::get('/', function () {
-    $user = auth()->user();
-    $user2 = \App\User::find(2);
-
-    $user->sendMessage($user2, "");
-
-    return $convo;
-
     if (!auth()->check())
         return view('pages.login');
 
